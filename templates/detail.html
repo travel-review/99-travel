@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %} 
+{% block title %}<title>travel-detail</title>{% endblock title %} 
+{% block content %}
+    <section class="detail-page-group">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="detail-title">JeJu</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="detail-img">
+                        <img src="../static/testAssets/placetest.png" alt="place-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 
-</body>
-</html>
+{% endblock content %}
+

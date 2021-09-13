@@ -1,0 +1,48 @@
+* {
+    box-sizing: content-box;
+    margin: 0;
+}
+
+/* ---- header ----- */
+
+header {
+    /* position: fixed;
+    top: 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    background-color: aliceblue;
+}
+
+a {
+    display: block;
+    text-align: right;
+    color: #000;
+}
+
+
+/* ---- detail page ----- */
+.detail-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    margin-top: 2em;
+}
+
+.detail-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5em;
+    border-radius: 10px;
+}
+
+.detail-img img {
+    border-radius: 10px;
+    -webkit-box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61); 
+    box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61);
+}

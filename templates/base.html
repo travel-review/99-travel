@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		{% block title %}
+		<!-- 페이지별 타이틀 공간 -->
+		<title>Title</title>
+		{% endblock title %} {% block meta %}
+		<!-- 페이지별 메타 데이터 공간 -->
+		{% endblock meta %} {% block scripts %}
+		<!-- 페이지별 스크립트 공간 -->
+		{% endblock scripts %} 
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="../static/default.css">
+		<link rel="stylesheet" href="../static/style.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-8">
+						<img src="" alt="logo-img">
+					</div>
+					<div class="col-2">
+						<a href="#" class="header-nav">리뷰 쓰기</a>
+					</div>
+					<div class="col-2">
+						<a href="#" class="header-nav">로그인</a>
+					</div>
+				</div>
+			</div>
+		</header>
+		{% block content %} {% endblock content %}
+	</body>
+</html>

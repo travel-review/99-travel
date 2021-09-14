@@ -96,6 +96,22 @@ def api_signup():
 def landing():
     return render_template('landing.html')
 
+# 네비게이션 api 부분
+@app.route('/nav/<continent>')
+def nav(continent):
+    token_receive = request.cookies.get('mytoken')
+    try:
+        places = list(db.places.find({"continent": continent}))
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        print(payload['id'])
+        print(places)
+        return render_template('landing.html', user_info=user_info, places=places)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
 @app.route('/upload')
 def upload():
     return render_template('upload.html')

@@ -24,12 +24,11 @@
                             $.cookie('mytoken', response['token']);
 
                             alert('로그인 완료!')
-                            window.location.href = '/landing'
                         } else {
                             // 로그인이 안되면 에러메시지를 띄웁니다.
                             alert(response['msg'])
-                            window.location.href = '/'
                         }
+                        window.location.href = '/'
                     }
                 })
             }
@@ -45,13 +44,13 @@
                     <h1>Travel-Reviews</h1>
                 </div>
                 <div class="col-12">
-                    <form action="/login" method ="POST">
+                    <div>
                         <label for="userid">ID</label>
                         <input type ="username" id="userid" name = "username" placeholder="Username"><br><br>
                         <label for="userpw">PW</label>
                         <input type ="password" id="userpw" name = "password" placeholder="Password"><br><br>
                         <input type = "submit" onclick="login()" class="submitBtn"></input>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

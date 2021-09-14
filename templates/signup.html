@@ -8,7 +8,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <link rel="stylesheet" href="../static/style.css">
@@ -32,6 +31,7 @@
                         } else {
                             alert(response['msg'])
                         }
+                        window.location.href = '/login'
                     }
                 })
             }
@@ -39,48 +39,20 @@
         </script>
     </head>
     <body>
-        <div class="login-section has-text-centered">
-            <h1 class="title">회원가입 페이지</h1>
-            <div class="container" style="width:60%">
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label" for="userid">ID</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" class="input" id="userid" aria-describedby="emailHelp"
-                                        placeholder="My ID">
-                            </div>
-                        </div>
-                    </div>
+        <main class="sign-page">
+            <div class="container">
+            <div class="row travel-group">
+                <div class="col-12">
+                    <h1>회원가입 페이지</h1>
                 </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label" for="userpw">PW</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="password" class="input" id="userpw" placeholder="My Password">
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-12 sign-up-group">
+                    <input type="text" id="userid" placeholder="New ID" class="sign-input"><br>
+                    <input type="password" id="userpw" placeholder="New Password" class="sign-input"><br>
+                    <input type="text" id="confirmpw" placeholder="CONFIRM Password" class="sign-input"><br>
+                    <button onclick="register()" class="box-btn">회원가입</button>
                 </div>
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label" for="usernick">CONFIRM PW</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" class="input" id="confirmpw" placeholder="CONFIRM PW">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="button is-primary" onclick="register()">회원가입</button>
             </div>
         </div>
+        </main>
     </body>
 </html>

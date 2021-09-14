@@ -45,9 +45,15 @@ a {
     border-radius: 10px;
     -webkit-box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61); 
     box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61);
+    margin-bottom: 3em;
 }
 
-.detail-group object {
-    width: 10em;
-    height: 10em;
+.detail-desc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 3em;
+    padding-left: 3em;
+    text-align: center;
+    font-size: 1em;
 }

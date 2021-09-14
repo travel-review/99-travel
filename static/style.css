@@ -66,3 +66,20 @@ a {
 .login-section input {
     width: 50vw;
 }
+
+/* ---- upload ----- */
+#placeTitle {
+    margin-top: 5em;
+    width: 50vw;
+    height: 4em;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.66); 
+    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.66);
+}
+
+#placeDesc {
+    width: 50vw;
+    height: 10em;
+    margin-top: 4em;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.66); 
+    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.66);
+}

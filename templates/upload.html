@@ -1,10 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %} 
+{% block title %}<title>travel-detail</title>{% endblock title %} 
+{% block scripts %}
+	<script>
+        function uploadPlace() {
+            $.ajax({
+                type: "POST",
+                url: "/api/upload/create",
+                data: {
+                    place_title_give: $('#placeTitle').val(),
+                    place_desc_give: $('#placeDesc').val(),
+                    place_img_give: $('#placeImg').val(),
+                    place_contient_give: $('#placeContient')
+                }
+            })
+        }
+    </script>
+{% endblock scripts %} 
+{% block content %}
+    <section class="upload-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <input type="file" id="placeImg">
+                </div>
+                <div class="col-12">
+                    <input type="text" id="placeTitle" placeholder="장소가 어디인가요?">
+                </div>
+                <div class="col-12">
+                    <textarea name="" id="placeDesc" cols="30" rows="10"></textarea>
+                </div>
+                <div class="col-12">
+                    <select name="continent" id="placeContient">
+                        <option value="">대륙 선택</option>
+                        <option value="유럽">유럽</option>
+                        <option value="아메리카">아메리카</option>
+                        <option value="동아시아">유럽</option>
+                        <option value="동남아">동남아</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button onclick="uploadPlace()">업로드</button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

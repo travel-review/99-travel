@@ -23,6 +23,7 @@
                     data: {
                         id_give: $('#userid').val(),
                         pw_give: $('#userpw').val(),
+                        pw_confirm_give: $('#confirmpw').val(),
                     },
                     success: function (response) {
                         if (response['result'] == 'success') {
@@ -68,12 +69,12 @@
                 </div>
                 <div class="field is-horizontal">
                     <div class="field-label is-normal">
-                        <label class="label" for="usernick">NICKNAME</label>
+                        <label class="label" for="usernick">CONFIRM PW</label>
                     </div>
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" class="input" id="usernick" placeholder="My Nickname">
+                                <input type="text" class="input" id="confirmpw" placeholder="CONFIRM PW">
                             </div>
                         </div>
                     </div>

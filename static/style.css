@@ -3,6 +3,84 @@
     margin: 0;
 }
 
+/* ---- landing ----- */
+.header-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 6em;
+    height: 40vh;
+    text-align: center;
+    background-image: url(../static/testAssets/background.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.header-img h1 {
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.1rem;
+    font-size: 3.6rem;
+}
+
+.header-img h2 {
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.1rem;
+    font-size: 1.6rem;
+    margin-top: 2rem;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2.5em;
+    font-size: 1rem;
+}
+
+.btn-group button {
+    border: 1px solid gainsboro;
+    width: 6.5rem;
+    height: 2.5rem;
+    border-radius: 20px;
+    transition: color ease-in-out 170ms;
+    transition: background-color ease-in-out 200ms;
+    transition: box-shadow ease-in-out 50ms;
+}
+
+.btn-group button:hover {
+    background-color: #42cef5;
+    border: none;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44); 
+    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
+    color: #fff;
+}
+
+.post-card-group {
+    margin-top: 3em;
+}
+
+.post-card {
+    text-align: left;
+}
+
+.post-card-group img {
+    border-radius: 20px;
+    margin-bottom: 1.3em;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44); 
+    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
+}
+
+.post-card {
+    padding-bottom: 1em;
+    transition: opacity ease-in-out 80ms;
+    margin-bottom: 3em;
+}
+
+.post-card:hover {
+    opacity: 50%;
+}
+
 /* ---- header ----- */
 
 header {

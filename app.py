@@ -1,40 +1,29 @@
 from flask import Flask, request, jsonify, redirect, url_for, make_response, render_template, session
 from datetime import datetime, timedelta
 from functools import wraps
+from datetime import datetime
 from pymongo import MongoClient
 import jwt
-import hashlib
 
 app = Flask(__name__)
 
 client = MongoClient('127.0.0.1')
-db = client.my_sparta
+db = client.upload
 
 SECRET_KEY = 'SPARTA'
 
 @app.route('/')
-def main():
+def login():
     token_receive = request.cookies.get('mytoken')
-    if token_receive is None:
-        return redirect(url_for("login"))
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
-        collection = db['places']
-        places = collection.find({})
-
         print(user_info)
-        print(collection)
-        return render_template('landing.html', user_info=user_info, places=places)
+        return render_template('login.html')
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
 
 
 @app.route('/api/signin', methods=['POST'])
@@ -43,7 +32,7 @@ def api_signin():
     pw_receive = request.form['pw_give']
 
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+    pw_hash = pw_receive
 
     # id, 암호화된pw을 가지고 해당 유저를 찾습니다.
     result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
@@ -58,7 +47,7 @@ def api_signin():
             'id': id_receive,
         }
         token = jwt.encode(payload, SECRET_KEY,
-                           algorithm='HS256').decode('utf-8')
+                           algorithm='HS256')
 
         # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})
@@ -73,10 +62,13 @@ def signup():
 @app.route('/api/signup', methods=['POST'])
 def api_signup():
     id_receive = request.form['id_give']
-    pw_receive = request.form['pw_give']
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+    pw_receive = request.form ['pw_give']
+
+    pw_hash = pw_receive
+
     db.user.insert_one(
         {'id': id_receive, 'pw': pw_hash})
+
     return jsonify({'result': 'success'})
 
 @app.route('/landing')
@@ -86,6 +78,33 @@ def landing():
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
+
+@app.route('/upload',methods=['POST'])
+def write_review():
+    title_receive = request.form['title_give']
+    author_receive = request.form['author_give']
+    review_receive = request.form['Review_give']
+
+    file = request.files['file_give']
+
+    today = datetime.now()
+    mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+    extension = file.filename.split('.')[-1]
+    filename = f'file-{mytime}'
+    save_to = f'static/{filename}.{extension}'
+
+    file.save(save_to)
+
+    doc = {
+        'title': title_receive,
+        'author': author_receive,
+        'review': review_receive,
+        'file': f'{filename}.{extension}'
+    }
+
+    db.review.insert_one(doc)
+
+    return jsonify({'msg': '저장완료!'})
 
 @app.route('/mypage')
 def mypage():

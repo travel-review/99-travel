@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, redirect, url_for, make_response, render_template, session
+from flask import Flask, request, jsonify, redirect, url_for, make_response, flash, render_template, session
 from datetime import datetime, timedelta
 from functools import wraps
 from pymongo import MongoClient
@@ -15,8 +15,6 @@ SECRET_KEY = 'SPARTA'
 @app.route('/')
 def main():
     token_receive = request.cookies.get('mytoken')
-    if token_receive is None:
-        return redirect(url_for("login"))
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
@@ -24,12 +22,27 @@ def main():
         places = collection.find({})
 
         print(user_info)
-        print(collection)
+        print(places)
         return render_template('landing.html', user_info=user_info, places=places)
     except jwt.ExpiredSignatureError:
-        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+        print("로그인 시간이 만료되었습니다.")
+        return redirect(url_for("login"))
     except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+        print("로그인 정보가 존재하지 않습니다.")
+        return redirect(url_for("login"))
+
+@app.route('/get_db')
+def tmp_get_db():
+    db.places.insert_one(
+        {
+            'title': '경복궁',
+            'description': '투어 & 박물관이 있는 역사적인 궁전',
+            'img_url': 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw',
+            'like': ['rrrr'],
+            'continent': 'seoul'
+        })
+    return render_template('login.html')
+
 
 
 @app.route('/login')
@@ -59,11 +72,11 @@ def api_signin():
         }
         token = jwt.encode(payload, SECRET_KEY,
                            algorithm='HS256').decode('utf-8')
-
         # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
     else:
+        print('아이디비번 x')
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 @app.route('/signup')
@@ -94,6 +107,36 @@ def mypage():
 @app.route('/detail')
 def detail():
     return render_template('detail.html')
+
+
+@app.route('/api/like', methods=['POST'])
+def update_like():
+    print(11111)
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        print(payload["id"])
+        user_info = db.users.find_one({"id": payload["id"]})
+        post_id_receive = request.form["post_id_give"]
+        type_receive = request.form["type_give"]
+        action_receive = request.form["action_give"]
+        doc = {
+            "_id": post_id_receive,
+            "id": user_info,
+            "type": type_receive
+        }
+        print(db.places.like.estimated_document_count())
+        count = db.places.like.estimated_document_count()
+        if action_receive == "like":
+            myquery = {"_id": post_id_receive}
+            find_place = db.places.find_one(myquery)
+            print(find_place)
+            # newvalues = {"$set": {"like": "Canyon 123"}}
+            return jsonify({"result": "success", 'msg': 'updated', "count": count})
+        else:
+            return jsonify({"result": "success", 'msg': 'updated', "count": count})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
 
 if __name__ == '__main__' :
     app.run(debug=True)

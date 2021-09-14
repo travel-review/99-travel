@@ -37,6 +37,7 @@ def tmp_get_db():
         {
             'title': '경복궁',
             'description': '투어 & 박물관이 있는 역사적인 궁전',
+            'userId': '61405336dea13163fda7257e',
             'img_url': 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw',
             'like': ['rrrr'],
             'continent': 'seoul'
@@ -116,9 +117,25 @@ def nav(continent):
 def upload():
     return render_template('upload.html')
 
-@app.route('/mypage')
-def mypage():
-    return render_template('mypage.html')
+
+# 마이페이지 부분
+@app.route('/api/mypage')
+def api_mypage():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        submitted_places = list(db.places.find({'userId': payload['_id']}))
+        like_places = list(db.places.find({'like': payload['_id']}))
+        user_info = db.user.find_one({"_id": payload['_id']})
+
+        print(payload['id'])
+        print(payload['_id'])
+        return render_template('mypage.html', user_info=user_info, submitted_places=submitted_places, like_places=like_places)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
 
 @app.route('/detail')
 def detail():
@@ -127,7 +144,6 @@ def detail():
 
 @app.route('/api/like', methods=['POST'])
 def update_like():
-    print(11111)
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])

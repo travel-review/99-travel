@@ -1,5 +1,13 @@
 {% extends 'base.html' %} 
 {% block title %}<title>travel-detail</title>{% endblock title %} 
+{% block scripts %}
+    <script>
+        const clickLike=()=>{
+            $('#placeLike').toggleClass('fill-red')
+            console.log("heartclick");
+        }
+    </script>
+{% endblock scripts %}
 {% block content %}
     <section class="detail-group">
         <div class="container">
@@ -9,9 +17,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 img-group">
                     <div class="detail-img">
                         <img src="../static/testAssets/placetest.png" alt="place-img">
+                        <div onclick="clickLike()" class="heart-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100" height="100"><path d="M140 20C73 20 20 74 20 140c0 135 136 170 228 303 88-132 229-173 229-303 0-66-54-120-120-120-48 0-90 28-109 69-19-41-60-69-108-69z" stroke="red" stroke-width="20" fill="none" id="placeLike"/></svg>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

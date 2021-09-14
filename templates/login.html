@@ -37,20 +37,23 @@
 </head>
 <body>
 
-    <main class="login-page">
+    <main class="sign-page">
         <div class="container">
             <div class="row travel-group">
                 <div class="col-12">
                     <h1>Travel-Reviews</h1>
                 </div>
                 <div class="col-12">
-                    <div>
-                        <label for="userid">ID</label>
-                        <input type ="username" id="userid" name = "username" placeholder="Username"><br><br>
-                        <label for="userpw">PW</label>
-                        <input type ="password" id="userpw" name = "password" placeholder="Password"><br><br>
-                        <input type = "submit" onclick="login()" class="submitBtn"></input>
+                    <div class="login-group">
+                        <input type ="username" id="userid" name = "username" placeholder="User ID" class="sign-input"><br><br>
+                        <input type ="password" id="userpw" name = "password" placeholder="User Password" class="sign-input"><br><br>
+                        <button type = "submit" onclick="login()" class="box-btn">로그인</button>
                     </div>
+                </div>
+                <div class="col-12">
+                    <button class="box-btn">
+                        <a href="/signup">회원가입</a>
+                    </button>
                 </div>
             </div>
         </div>

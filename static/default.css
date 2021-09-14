@@ -17,6 +17,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 button,
 input,
 select,
@@ -34,4 +38,9 @@ ul,
 ol {
   list-style: none;
   padding-left: 0;
+}
+
+a:active {
+  text-decoration: none;
+  color: inherit;
 }

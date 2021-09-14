@@ -57,3 +57,12 @@ a {
     text-align: center;
     font-size: 1em;
 }
+
+/* ---- signup ----- */
+.login-section {
+    margin-top: 20vh;
+}
+
+.login-section input {
+    width: 50vw;
+}

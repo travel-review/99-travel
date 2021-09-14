@@ -10,7 +10,7 @@
                     place_title_give: $('#placeTitle').val(),
                     place_desc_give: $('#placeDesc').val(),
                     place_img_give: $('#placeImg').val(),
-                    place_contient_give: $('#placeContient')
+                    place_contient_give: $('#placeContient').val()
                 }
             })
         }
@@ -21,15 +21,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <input type="file" id="placeImg">
+                    <h1 class="upload-title">내 장소 업로드</h1>
                 </div>
                 <div class="col-12">
                     <input type="text" id="placeTitle" placeholder="장소가 어디인가요?">
                 </div>
                 <div class="col-12">
-                    <textarea name="" id="placeDesc" cols="30" rows="10"></textarea>
+                    <textarea name="" id="placeDesc" cols="30" rows="10" placeholder="설명을 적어주세요"></textarea>
                 </div>
-                <div class="col-12">
+                <div class="col-6 upload-select">
                     <select name="continent" id="placeContient">
                         <option value="">대륙 선택</option>
                         <option value="유럽">유럽</option>
@@ -39,7 +39,10 @@
                         <option value="기타">기타</option>
                     </select>
                 </div>
-                <div class="col-12">
+                <div class="col-6 upload-select">
+                    <input type="file" id="placeImg">
+                </div>
+                <div class="col-12 upload-btn">
                     <button onclick="uploadPlace()">업로드</button>
                 </div>
             </div>

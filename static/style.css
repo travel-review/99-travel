@@ -68,18 +68,59 @@ a {
 }
 
 /* ---- upload ----- */
+
+.upload-title {
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 1em;
+}
+
 #placeTitle {
-    margin-top: 5em;
-    width: 50vw;
+    text-align: center;
+    margin-top: 4em;
+    width: 100%;
     height: 4em;
-    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.66); 
-    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.66);
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44); 
+    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
+    border-radius: 10px;
 }
 
 #placeDesc {
-    width: 50vw;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
     height: 10em;
     margin-top: 4em;
-    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.66); 
-    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.66);
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44); 
+    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
+    border-radius: 10px;
+    margin-bottom: 4em;
+}
+
+#placeContient {
+    border: 1px solid #000
+}
+
+.upload-btn {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
+}
+
+.upload-btn button {
+    background-color: #42cef5;
+    border-radius: 10px;
+    width: 5em;
+    height: 2em;
+    color: #fff;
+    
+}
+
+.upload-select {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

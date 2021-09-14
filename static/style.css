@@ -6,8 +6,8 @@
 /* ---- header ----- */
 
 header {
-    /* position: fixed;
-    top: 0; */
+    position: fixed;
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,6 +15,7 @@ header {
     padding-top: 1.2em;
     padding-bottom: 1.2em;
     background-color: aliceblue;
+    z-index: 1;
 }
 
 a {
@@ -62,9 +63,16 @@ a {
 .login-section {
     margin-top: 20vh;
 }
+.login-section .container {
+    margin-top: 5em;
+}
 
 .login-section input {
     width: 50vw;
+}
+
+.button {
+    margin-top: 5em;
 }
 
 /* ---- upload ----- */
@@ -131,9 +139,6 @@ a {
 }
 
 .upload-select select {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
     padding: 0.3em;
     text-align: center;
     transition: background-color ease-in-out 150ms;
@@ -143,4 +148,33 @@ a {
 select:hover {
     background-color: #42cef5;
     color: #fff;
+}
+
+/* ---- mypage ----- */
+.mypage-group {
+    padding-top:8em;
+    padding-bottom: 3em;
+}
+
+.my-upload-list {
+    padding-bottom: 7em;
+}
+
+.mypage-group img {
+    width: 15em;
+    height: 15em;
+    background-size: cover;
+    margin-top: 0.7em;
+    margin-bottom: 1.4em;
+    border-radius: 10px;
+    -webkit-box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61); 
+    box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61);
+}
+.mypage-group img:hover {
+    opacity: 50%;
+    transition: opactiy ease-in-out 300ms;
+}
+
+.mypage-group h3 {
+    font-weight: 700;
 }

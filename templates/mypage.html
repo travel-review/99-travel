@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %} 
+{% block title %}<title>my-page</title>{% endblock title %} 
+{% block content %}
+    <main class="mypage-group">
+        <section class="my-upload-list">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>내가 소개한 여행지</h3>
+                    </div>
+                    <div class="col-12">
+                        <div class="my-post-group">
+                            <img src="../static/testAssets/placetest.png" alt="place-img">
+                            <h4>Jeju</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="my-like-list">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>내가 좋아요 한 여행지</h3>
+                    </div>
+                    <div class="col-12">
+                        <div class="my-like-group">
+                            <img src="../static/testAssets/placetest.png" alt="place-img">
+                            <h4>Jeju</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-</body>
-</html>
+{% endblock content %}

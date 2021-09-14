@@ -46,3 +46,8 @@ a {
     -webkit-box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61); 
     box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61);
 }
+
+.detail-group object {
+    width: 10em;
+    height: 10em;
+}

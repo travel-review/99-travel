@@ -124,3 +124,23 @@ a {
     justify-content: center;
     align-items: center;
 }
+
+.upload-select input, select {
+    width: 10em;
+    height: 2em;
+}
+
+.upload-select select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0.3em;
+    text-align: center;
+    transition: background-color ease-in-out 150ms;
+    transition: color ease-in-out 100ms;
+}
+
+select:hover {
+    background-color: #42cef5;
+    color: #fff;
+}

@@ -29,50 +29,27 @@
         <section class="post-card-group">
             <div class="container">
                 <div class="row">
-                    <div class="col-3 col-md-4">
+                    {% for place in places %}
+                    <article class="col-3 col-md-4">
                         <a class="post-card">
-                            <img class="card-img-top" src="../static/testAssets/placetest.png" alt="Card image cap">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <img class="card-img-top" src="{{ place.img_url }}" alt="Card image cap">
+                            <h5 class="card-title">{{ place.title }}</h5>
+                            <p class="card-text">{{ place.description }}</p>
+                            {% if place.like|length >= 1 %}
+                                <a class="level-item is-sparta" aria-label="heart"
+                                   onclick="toggle_like('{{ place._id }}','{{ user_info._id }}', 'heart')">
+                                    <img alt="임시" class="fa fa-heart" aria-hidden="false" width="10px" height="10px"></img>
+                                </a>
+                            {% else %}
+                                <a class="level-item is-sparta" aria-label="heart"
+                                   onclick="toggle_like('{{ place._id }}','{{ user_info._id }}', 'heart')">
+                                    <img alt="임시" class="fa fa-heart-o" aria-hidden="false" width="10px" height="10px"></img>
+                                </a>
+                            {% endif %}
                         </a>
-                    </div>
-                    <div class="col-3 col-md-4">
-                        <a class="post-card">
-                            <img class="card-img-top" src="../static/testAssets/placetest.png" alt="Card image cap">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </a>
-                    </div>
-                    <div class="col-3 col-md-4">
-                        <a class="post-card">
-                            <img class="card-img-top" src="../static/testAssets/placetest.png" alt="Card image cap">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </a>
-                    </div>
-                    <div class="col-3 col-md-4">
-                        <a class="post-card">
-                            <img class="card-img-top" src="../static/testAssets/placetest.png" alt="Card image cap">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </a>
-                    </div>
-                    <div class="col-3 col-md-4">
-                        <a class="post-card">
-                            <img class="card-img-top" src="../static/testAssets/placetest.png" alt="Card image cap">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </a>
-                    </div>
-                    <div class="col-3 col-md-4">
-                        <a class="post-card">
-                            <img class="card-img-top" src="../static/testAssets/placetest.png" alt="Card image cap">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </a>
-                    </div>
+                    </article>
+                    {% endfor %}
                 </div>
-                
             </div>
         </section>
     </main>

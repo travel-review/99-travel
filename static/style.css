@@ -122,8 +122,12 @@ a {
 
 .header-nav {
     color: #000;
+    text-align: right;
 }
 
+.logout-btn {
+    text-align: right;
+}
 
 /* ---- detail page ----- */
 .detail-title {

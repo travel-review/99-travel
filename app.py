@@ -139,13 +139,9 @@ def api_mypage():
         user_info = db.user.find_one({"id": payload['id']})
 
         print(payload['id'])
-<<<<<<< Updated upstream
-        return render_template('mypage.html', user_info=user_info, submitted_places=submitted_places, like_places=like_places)
-=======
-        print(payload['_id'])
+
         return render_template('mypage.html', user_info=user_info, submitted_places=submitted_places,
                                like_places=like_places)
->>>>>>> Stashed changes
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:

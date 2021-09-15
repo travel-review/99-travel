@@ -13,7 +13,7 @@ app = Flask(__name__)
 client = MongoClient('127.0.0.1')
 db = client.my_sparta
 
-_FAKE_PLACE_NUM = 10
+_FAKE_PLACE_NUM = 5
 SECRET_KEY = 'SPARTA'
 
 
@@ -24,10 +24,8 @@ def main():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
         collection = db['places']
-        places = collection.find({})
-
+        places = list(db.places.find())
         print(user_info)
-        print(places)
         return render_template('landing.html', user_info=user_info, places=places)
     except jwt.ExpiredSignatureError:
         print("로그인 시간이 만료되었습니다.")
@@ -199,6 +197,6 @@ def update_like():
 
 
 if __name__ == '__main__':
-    # TODO: 한번만 실행 강제 시킬 것
-    # utils.insert_fake_places(_FAKE_PLACE_NUM)
+    # TODO: 한번만 실행 강제 시킬 것, 아니면 /get_db api 호출 할 것
+    utils.insert_fake_places(_FAKE_PLACE_NUM)
     app.run(debug=True)

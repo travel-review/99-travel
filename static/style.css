@@ -206,6 +206,18 @@ a {
     margin-top: 5em;
 }
 
+.sign-up-group label {
+    text-align: left;
+    font-size: 0.8rem;
+    padding-left: 1rem;
+    line-height: 1rem;
+    color: blue;
+}
+
+.sign-up-group {
+    text-align: left;
+}
+
 
 
 /* ---- upload ----- */

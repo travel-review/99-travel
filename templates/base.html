@@ -22,29 +22,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script>
-        function toggle_like(post_id, user_id, type) {
+        const clickLike = (post_id, type) => {
+            let query = `.placeLike#${post_id}`
+            let $place_like = $(query)
+            $place_like.toggleClass('fill-red')
             console.log(post_id, type)
-            let $a_like = $(`#${post_id} a[aria-label='heart']`)
-            console.log($a_like)
-            let $i_like = $a_like.find("img")
-            if ($i_like.hasClass("fa-heart")) {
-                console.log(1)
-                $.ajax({
-                    type: "POST",
-                    url: "/api/like",
-                    data: {
-                        post_id_give: post_id,
-                        type_give: type,
-                        action_give: "unlike"
-                    },
-                    success: function (response) {
-                        console.log("unlike")
-                        $i_like.addClass("fa-heart-o").removeClass("fa-heart")
-                        $a_like.find("span.like-num").text(response["count"])
-                    }
-                })
-            } else {
-                console.log(2)
+            console.log($place_like)
+            if ($place_like.hasClass("fill-red")) {
                 $.ajax({
                     type: "POST",
                     url: "/api/like",
@@ -55,18 +39,55 @@
                     },
                     success: function (response) {
                         console.log("like")
-                        $i_like.addClass("fa-heart").removeClass("fa-heart-o")
-                        $a_like.find("span.like-num").text(response["count"])
+                        console.log(response["count"])
                     }
                 })
 
             }
+            else
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/like",
+                    data: {
+                        post_id_give: post_id,
+                        type_give: type,
+                        action_give: "unlike"
+                    },
+                    success: function (response) {
+                        console.log("unlike")
+                        console.log(response["count"])
+                    }
+                })
+            }
         }
-
+        {#const render_my_page = () =>{#}
+        {#    let query = `.my-post-group`;#}
+        {#    let $my_post_group = $(query);#}
+        {#    let $image = $my_post_group.children("img");#}
+        {#    $.ajax({#}
+        {#            type: "GET",#}
+        {#            url: "/api/like",#}
+        {#            data: {#}
+        {#                post_id_give: post_id,#}
+        {#                type_give: type,#}
+        {#                action_give: "like"#}
+        {#            },#}
+        {#            success: function (response) {#}
+        {#                render_my_page#}
+        {#                console.log(response["count"])#}
+        {#            }#}
+        {#        })#}
+        {#
+        }#}
         function sign_out() {
             $.removeCookie('mytoken', {path: '/'});
             alert('로그아웃!')
             window.location.href = "/login"
+        }
+        const isLikeAndRed = (myId, likeList)=>{
+            const red = likeList.includes(myId) ? 'placeLike fill-red' : 'placeLike none';
+            return true;
         }
     </script>
 </head>
@@ -75,13 +96,13 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <a href="landing" class="header-logo"><img src="" alt="logo-img"></a>
+                <a href="/" class="header-logo"><img src="" alt="logo-img"></a>
             </div>
             <div class="col-2">
                 <a href="/upload" class="header-nav">여행지 등록</a>
             </div>
             <div class="col-2">
-                <a href="/mypage" class="header-nav">마이페이지</a>
+                <a href="/api/mypage" class="header-nav">마이페이지</a>
             </div>
             <div class="col-2 logout-btn">
                 <button onclick="sign_out()">로그아웃</button>

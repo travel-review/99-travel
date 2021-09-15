@@ -1,140 +1,51 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <!-- Webpage Title -->
-    <title>해외여행 리뷰</title>
-
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-
-    <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <!-- fileupload library-->
-    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
-
-    <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
-
-    <script>
-        $(document).ready(function () {
-            bsCustomFileInput.init()
-            listing()
-        })
-function posting() {
-    let title = $('#title').val()
-    let Review = $("#Review").val()
-    let continent= $('#continent').val()
-
-    let file = $('#file')[0].files[0]
-    let form_data = new FormData()
-
-    form_data.append("file_give", file)
-    form_data.append("title_give", title)
-    form_data.append("Review_give", Review)
-    form_data.append("continent_give", continent)
-
-    $.ajax({
-        type: "POST",
-        url: "/upload",
-        data: form_data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            alert(response["msg"])
-            window.location.reload()
+{% extends 'base.html' %} 
+{% block title %}<title>travel-detail</title>{% endblock title %} 
+{% block scripts %}
+	<script>
+        function uploadPlace() {
+            $.ajax({
+                type: "POST",
+                url: "/api/upload/create",
+                data: {
+                    place_title_give: $('#placeTitle').val(),
+                    place_desc_give: $('#placeDesc').val(),
+                    place_img_give: $('#placeImg').val(),
+                    place_contient_give: $('#placeContient').val()
+                }
+            })
         }
-    });
-}
-
     </script>
-
-    <style type="text/css">
-        * {
-            font-family: "Do Hyeon", sans-serif;
-        }
-
-        h1,
-        h5 {
-            display: inline;
-        }
-
-        .info {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .review {
-            text-align: center;
-        }
-
-        .reviews {
-            margin-top: 100px;
-        }
-    </style>
-</head>
-
-<body>
-<div class="container">
-    <div class="info">
-        <h1>upload</h1>
-        <p>여행 리뷰를 남겨주세요!</p>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">제목</span>
+{% endblock scripts %} 
+{% block content %}
+    <section class="upload-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="upload-title">내 장소 업로드</h1>
+                </div>
+                <div class="col-12">
+                    <input type="text" id="placeTitle" placeholder="장소가 어디인가요?">
+                </div>
+                <div class="col-12">
+                    <textarea name="" id="placeDesc" cols="30" rows="10" placeholder="설명을 적어주세요"></textarea>
+                </div>
+                <div class="col-6 upload-select">
+                    <select name="continent" id="placeContient">
+                        <option value="">대륙 선택</option>
+                        <option value="유럽">유럽</option>
+                        <option value="아메리카">아메리카</option>
+                        <option value="동아시아">유럽</option>
+                        <option value="동남아">동남아</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="col-6 upload-select">
+                    <input type="file" id="placeImg">
+                </div>
+                <div class="col-12 upload-btn">
+                    <button onclick="uploadPlace()">업로드</button>
+                </div>
             </div>
-            <input type="text" class="form-control" id="title">
-
         </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">지역</span>
-            </div>
-
-            <input type="text" class="form-control" id="continent">
-        </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">리뷰</span>
-            </div>
-            <textarea class="form-control" id="Review"
-                      cols="30"
-                      rows="5" placeholder="리뷰를 입력하세요."></textarea>
-        </div>
-
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" id="file">
-            <label class="custom-file-label" for="file">사진 선택하기</label>
-        </div>
-
-
-        <div class="review">
-            <button onclick="posting()" type="button" class="btn btn-primary">작성하기</button>
-        </div>
-    </div>
-
-     </div>
-            <div id="cards-box" class="card-columns">
-            </div>
-</div>
-
-</body>
-
-</html>
+    </section>
+{% endblock content %}

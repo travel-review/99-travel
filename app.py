@@ -37,7 +37,6 @@ def tmp_get_db():
         {
             'title': '경복궁',
             'description': '투어 & 박물관이 있는 역사적인 궁전',
-            'userId': '61405336dea13163fda7257e',
             'img_url': 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw',
             'like': ['rrrr'],
             'continent': 'seoul'
@@ -97,126 +96,13 @@ def api_signup():
 def landing():
     return render_template('landing.html')
 
-# 네비게이션 api 부분
-@app.route('/nav/<continent>')
-def nav(continent):
-    token_receive = request.cookies.get('mytoken')
-    try:
-        places = list(db.places.find({"continent": continent}))
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"username": payload["id"]})
-        print(payload['id'])
-        print(places)
-        return render_template('landing.html', user_info=user_info, places=places)
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-
-
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
 
-# upload
-@app.route('/upload', methods=['POST'])
-def write_review():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.user.find_one({"id": payload['id']})
-
-        title_receive = request.form['title_give']
-        review_receive = request.form['Review_give']
-        continent_receive = request.form['continent_give']
-        file = request.files['file_give']
-        today = datetime.now()
-        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
-        extension = file.filename.split('.')[-1]
-        filename = f'file-{mytime}'
-        save_to = f'static/img/{filename}.{extension}'
-
-        file.save(save_to)
-
-        doc = {
-            'title': title_receive,
-            'userid': user_info,
-            'continent': continent_receive,
-            'description': review_receive,
-            'img': f'{filename}.{extension}'
-        }
-
-        db.places.insert_one(doc)
-
-        return jsonify({'result': 'success', 'msg': '저장완료!'})
-
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("landing", msg="로그인 시간이 만료되었습니다."))
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("landing", msg="로그인 정보가 존재하지 않습니다."))
-
-    '''
-    title_receive = request.form['title_give']
-    author_receive = request.form['author_give']
-    review_receive = request.form['Review_give']
-
-    file = request.files['file_give']
-
-    today = datetime.now()
-    mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
-    extension = file.filename.split('.')[-1]
-    filename = f'file-{mytime}'
-    save_to = f'static/img/{filename}.{extension}'
-
-    file.save(save_to)
-
-    doc = {
-        'title': title_receive,
-        'author': author_receive,
-        'review': review_receive,
-        'file': f'{filename}.{extension}'
-    }
-
-    db.review.insert_one(doc)
-
-    return jsonify({'msg': '저장완료!'})
-'''
-
-
-# 리스팅
-@app.route('/landing/reviews', methods=['GET'])
-def read_reviews():
-    reviews = list(db.places.find({}, {'_id': False}))
-    print(reviews)
-    return jsonify({'all_reviews': reviews})
-
-
-'''
-@app.route('/landing', methods=['GET'])
-def listing():
-    reviews = list(db.review.find({}, {'_id': False}))
-    print(reviews)
-    return jsonify({'all_reviews': reviews})
-'''
-
-# 마이페이지 부분
-@app.route('/api/mypage')
-def api_mypage():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        submitted_places = list(db.places.find({'userId': payload['_id']}))
-        like_places = list(db.places.find({'like': payload['_id']}))
-        user_info = db.user.find_one({"_id": payload['_id']})
-
-        print(payload['id'])
-        print(payload['_id'])
-        return render_template('mypage.html', user_info=user_info, submitted_places=submitted_places, like_places=like_places)
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-
+@app.route('/mypage')
+def mypage():
+    return render_template('mypage.html')
 
 @app.route('/detail')
 def detail():
@@ -225,6 +111,7 @@ def detail():
 
 @app.route('/api/like', methods=['POST'])
 def update_like():
+    print(11111)
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])

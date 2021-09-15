@@ -37,16 +37,20 @@
                     alert("아이디는 숫자 + 영문 대소문자 조합만 가능합니다.");
                     return;
                 } else if(!PwCheckPattern.test(userPw)) {
-                    alert("비밀번호는 숫자 + 영문 대소문자 + 특수문자 조합만 가능합니다.")
+                    alert("비밀번호는 숫자 + 영문 대소문자 + 특수문자로 조합해주세요.");
+                    return;
                 }
                 
                 // 확인 비밀번호 체크
                 if(userPw !== confirmPw) {
                     alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
                     return;
+                } else if(userPw === userId) {
+                    alert("아이디와 비밀번호가 같습니다.");
+                    return;
                 }
 
-                
+
 
 
                 $.ajax({
@@ -101,7 +105,7 @@
                     <label for="userpw">8~16자, 숫자 + 영문 대소문자 + 특수문자 조합</label><br>
                     <input type="password" id="userpw" placeholder="New Password ( 8 ~ 16자 )" class="sign-input" min="8" max="16"><br>
                     <label for="confirmpw">비밀번호를 한번 더 입력해주세요.</label><br>
-                    <input type="text" id="confirmpw" placeholder="CONFIRM Password" class="sign-input"><br>
+                    <input type="password" id="confirmpw" placeholder="CONFIRM Password" class="sign-input"><br>
                     <button onclick="register()" class="box-btn">회원가입</button>
                 </div>
             </div>

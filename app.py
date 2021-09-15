@@ -198,5 +198,5 @@ def update_like():
 
 if __name__ == '__main__':
     # TODO: 한번만 실행 강제 시킬 것, 아니면 /get_db api 호출 할 것
-    utils.insert_fake_places(_FAKE_PLACE_NUM)
+    # utils.insert_fake_places(_FAKE_PLACE_NUM)
     app.run(debug=True)

@@ -97,8 +97,8 @@ def api_signup():
     pw_receive = request.form['pw_give']
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    test = db.user.find_one({'id': id_receive})
-    if(test):
+    overCheck = db.user.find_one({'id': id_receive})
+    if(overCheck):
         return jsonify({'result': 'overlap'})
     else:
         db.user.insert_one(

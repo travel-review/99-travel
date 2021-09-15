@@ -13,7 +13,7 @@ app = Flask(__name__)
 client = MongoClient('127.0.0.1')
 db = client.my_sparta
 
-_FAKE_PLACE_NUM = 50
+_FAKE_PLACE_NUM = 10
 SECRET_KEY = 'SPARTA'
 
 
@@ -39,15 +39,16 @@ def main():
 
 @app.route('/get_db')
 def tmp_get_db():
-    db.places.insert_one(
-        {
-            'title': '경복궁',
-            'description': '투어 & 박물관이 있는 역사적인 궁전',
-            'userId': '61405336dea13163fda7257e',
-            'img_url': 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw',
-            'like': ['rrrr'],
-            'continent': 'seoul'
-        })
+    utils.insert_fake_places(_FAKE_PLACE_NUM)
+    # db.places.insert_one(
+    #     {
+    #         'title': '경복궁',
+    #         'description': '투어 & 박물관이 있는 역사적인 궁전',
+    #         'userId': '61405336dea13163fda7257e',
+    #         'img_url': 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw',
+    #         'like': ['rrrr'],
+    #         'continent': 'seoul'
+    #     })
     return render_template('login.html')
 
 
@@ -198,5 +199,6 @@ def update_like():
 
 
 if __name__ == '__main__':
-    utils.insert_fake_places(_FAKE_PLACE_NUM)
+    # TODO: 한번만 실행 강제 시킬 것
+    # utils.insert_fake_places(_FAKE_PLACE_NUM)
     app.run(debug=True)

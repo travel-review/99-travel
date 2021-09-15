@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!doctype html>
 <html lang="en">
     <head>
@@ -83,4 +84,63 @@
             </div>
         </div>
     </body>
+=======
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Signup</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <link rel="stylesheet" href="../static/style.css">
+
+        <script>
+            // 간단한 회원가입 함수입니다.
+            // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
+            function register() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/signup",
+                    data: {
+                        id_give: $('#userid').val(),
+                        pw_give: $('#userpw').val(),
+                        pw_confirm_give: $('#confirmpw').val(),
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            alert('회원가입이 완료되었습니다.')
+                            window.location.href = '/'
+                        } else {
+                            alert(response['msg'])
+                        }
+                        window.location.href = '/login'
+                    }
+                })
+            }
+
+        </script>
+    </head>
+    <body>
+        <main class="sign-page">
+            <div class="container">
+            <div class="row travel-group">
+                <div class="col-12">
+                    <h1>회원가입 페이지</h1>
+                </div>
+                <div class="col-12 sign-up-group">
+                    <input type="text" id="userid" placeholder="New ID" class="sign-input"><br>
+                    <input type="password" id="userpw" placeholder="New Password" class="sign-input"><br>
+                    <input type="text" id="confirmpw" placeholder="CONFIRM Password" class="sign-input"><br>
+                    <button onclick="register()" class="box-btn">회원가입</button>
+                </div>
+            </div>
+        </div>
+        </main>
+    </body>
+>>>>>>> Stashed changes
 </html>

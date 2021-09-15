@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Travel Diary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script defer src="../static/main.js"></script>
+    <link rel="stylesheet" href="../static/main.css">
+
+            <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+
+<style>
+
+    .wrap{
+        margin: 50px auto auto auto ;
+        width: 80%;
+
+    }
+</style>
+    <script type="text/javascript">
+
+
+         $(document).ready(function () {
+                showReview();
+            });
+
+        function showReview() {
+		// 서버의 데이터를 받아오기
+		$.ajax({
+        type: "GET",
+        url: "/landing/reviews",
+        data: {},
+        success: function (response) {
+            let reviews = response['all_reviews']
+                        for (let i =0 ; i<reviews.length; i++)
+                        {
+                            let title = reviews[i]['title']
+                            let review = reviews[i]['description']
+                            let img = reviews[i]['img']
+                            console.log(title,review,img)
+                            let temp_html = `<div class="card" >
+                                             <img class="card-img-top" src="../static/img/${img}" id="card-img" alt="Card image cap">
+                                             </a>
+                                             <div class="card-body">
+                                             <h5 class="card-title">${title}</h5>
+                                             <p class="card-text">${review}</p>
+                                            </div>
+                                         </div>`;
+                        $('#cards-box').append(temp_html);
+                        }
+
+        }
+    })
+}
+
+    </script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="sub-menu">
+        <ul class="menu">
+            <li>
+                <a href="../upload">Review Upload</a>
+            </li>
+            <li>
+                <a href="../mypage">MY PAGE</a>
+            </li>
+        </ul>
+        <div class="search">
+            <input type="text">
+            <div class="material-icons">search</div>
+        </div>
+    </div>
+
+</header>
+<!-- main image -->
+<div class="background">
+    <div class="main-title">
+        <p id="p1">해외 여행 후기</p>
+        <p id="p2">기억에 남았던 해외 여행 후기를 등록해보세요</p>
+
+    </div>
+</div>
+
+<div class="location">
+    <div class="btn-group">
+        <button>전체</button>
+        <button>유럽</button>
+        <button>아메리카</button>
+        <button>동아시아</button>
+        <button>동남아</button>
+        <button>기타</button>
+    </div>
+</div>
+
+        <div class="wrap">
+            <div id="post-box" class="form-post" style="display:none">
+            </div>
+                <div id="cards-box" class="card-columns"></div>
+            </div>
+
+                </div>
+
+
+</body>
+</html>

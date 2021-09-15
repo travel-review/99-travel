@@ -6,12 +6,16 @@ from pymongo import MongoClient
 import jwt
 import hashlib
 
+import utils
+
 app = Flask(__name__)
 
 client = MongoClient('127.0.0.1')
 db = client.my_sparta
 
+_FAKE_PLACE_NUM = 50
 SECRET_KEY = 'SPARTA'
+
 
 @app.route('/')
 def main():
@@ -32,6 +36,7 @@ def main():
         print("로그인 정보가 존재하지 않습니다.")
         return redirect(url_for("login"))
 
+
 @app.route('/get_db')
 def tmp_get_db():
     db.places.insert_one(
@@ -44,7 +49,6 @@ def tmp_get_db():
             'continent': 'seoul'
         })
     return render_template('login.html')
-
 
 
 @app.route('/login')
@@ -64,7 +68,7 @@ def api_signin():
     result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
 
     # 찾으면 JWT 토큰을 만들어 발급합니다.
-    if result is not None:
+    if result:
         # JWT 토큰에는, payload와 시크릿키가 필요합니다.
         # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
         # 아래에선 id와 exp를 담았습니다. 즉, JWT 토큰을 풀면 유저ID 값을 알 수 있습니다.
@@ -81,9 +85,11 @@ def api_signin():
         print('아이디비번 x')
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
+
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
+
 
 @app.route('/api/signup', methods=['POST'])
 def api_signup():
@@ -94,9 +100,11 @@ def api_signup():
         {'id': id_receive, 'pw': pw_hash})
     return jsonify({'result': 'success'})
 
+
 @app.route('/landing')
 def landing():
     return render_template('landing.html')
+
 
 # 네비게이션 api 부분
 @app.route('/nav/<continent>')
@@ -114,6 +122,7 @@ def nav(continent):
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
+
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
@@ -130,7 +139,13 @@ def api_mypage():
         user_info = db.user.find_one({"id": payload['id']})
 
         print(payload['id'])
+<<<<<<< Updated upstream
         return render_template('mypage.html', user_info=user_info, submitted_places=submitted_places, like_places=like_places)
+=======
+        print(payload['_id'])
+        return render_template('mypage.html', user_info=user_info, submitted_places=submitted_places,
+                               like_places=like_places)
+>>>>>>> Stashed changes
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
@@ -185,5 +200,7 @@ def update_like():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("login"))
 
-if __name__ == '__main__' :
+
+if __name__ == '__main__':
+    utils.insert_fake_places(_FAKE_PLACE_NUM)
     app.run(debug=True)

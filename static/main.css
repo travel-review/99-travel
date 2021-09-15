@@ -110,6 +110,8 @@ body {
       background-image: url("./testAssets/background.jpg");
       background-position: center;
       position: relative;
+      background-size: contain;
+      background-repeat: no-repeat;
   }
   
   .main-title{

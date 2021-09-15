@@ -8,12 +8,14 @@
                     <div class="col-12">
                         <h3>내가 소개한 여행지</h3>
                     </div>
-                    <div class="col-12">
-                        <div class="my-post-group">
-                            <img src="../static/testAssets/placetest.png" alt="place-img">
-                            <h4>Jeju</h4>
+                    {% for place in submitted_places %}
+                        <div class="col-12">
+                            <div class="my-post-group">
+                                <img src="{{ place.img_url }}" alt="place-img">
+                                <h4>{{ place.title }}</h4>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -23,12 +25,14 @@
                     <div class="col-12">
                         <h3>내가 좋아요 한 여행지</h3>
                     </div>
-                    <div class="col-12">
-                        <div class="my-like-group">
-                            <img src="../static/testAssets/placetest.png" alt="place-img">
-                            <h4>Jeju</h4>
+                    {% for place in like_places %}
+                        <div class="col-12">
+                            <div class="my-like-group">
+                                <img src="{{place.img_url}}" alt="place-img">
+                                <h4>{{ place.title }}</h4>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

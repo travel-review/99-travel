@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, redirect, url_for, make_response, flash, render_template, session
+import os
 from datetime import datetime, timedelta
 from functools import wraps
 from bson.objectid import ObjectId
@@ -24,8 +25,10 @@ def main():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
         collection = db['places']
-        places = list(db.places.find())
+        places = collection.find({})
+
         print(user_info)
+        print(places)
         return render_template('landing.html', user_info=user_info, places=places)
     except jwt.ExpiredSignatureError:
         print("로그인 시간이 만료되었습니다.")
@@ -95,9 +98,14 @@ def api_signup():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-    db.user.insert_one(
-        {'id': id_receive, 'pw': pw_hash})
-    return jsonify({'result': 'success'})
+
+    overCheck = db.user.find_one({'id': id_receive})
+    if(overCheck):
+        return jsonify({'result': 'overlap'})
+    else:
+        db.user.insert_one(
+            {'id': id_receive, 'pw': pw_hash})
+        return jsonify({'result': 'success'})
 
 
 @app.route('/landing')
@@ -126,6 +134,44 @@ def nav(continent):
 def upload():
     return render_template('upload.html')
 
+@app.route('/api/upload', methods=['POST'])
+def write_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = payload['id']
+
+        title_receive = request.form['title_give']
+        review_receive = request.form['Review_give']
+        continent_receive = request.form['continent_give']
+        file = request.files['file_give']
+
+        today = datetime.now()
+        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+        extension = file.filename.split('.')[-1]
+        filename = f'file-{mytime}'
+        save_to = f'static/img/{filename}.{extension}'
+        print(file)
+        print(save_to)
+        print(os.getcwd())
+        file.save(save_to)
+
+        doc = {
+            'title': title_receive,
+            'description': review_receive,
+            'userid': user_info,
+            'img_url': f'{filename}.{extension}',
+            'like': [],
+            'continent': continent_receive,
+        }
+        db.places.insert_one(doc)
+        print(1234)
+        return jsonify({'result': 'success', 'msg': '저장완료!'})
+
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
 
 # 마이페이지 부분
 @app.route('/api/mypage')
@@ -136,9 +182,7 @@ def api_mypage():
         submitted_places = list(db.places.find({'userId': payload['id']}))
         like_places = list(db.places.find({'like': payload['id']}))
         user_info = db.user.find_one({"id": payload['id']})
-
         print(payload['id'])
-
         return render_template('mypage.html', user_info=user_info, submitted_places=submitted_places,
                                like_places=like_places)
     except jwt.ExpiredSignatureError:
@@ -147,13 +191,20 @@ def api_mypage():
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
-@app.route('/detail/<title>')
-def detail(title):
+# 리스팅
+@app.route('/landing/reviews', methods=['GET'])
+def read_reviews():
+
+    reviews = list(db.places.find({}, {'_id': False,'userid':False}))
+    return jsonify({'all_reviews': reviews})
+
+@app.route('/detail/<placeId>')
+def detail(placeId):
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
-        my_query = {"title": title}
+        my_query = {"_id": ObjectId(placeId)}
         col = db.places.find_one(my_query)
         return render_template('detail.html', place=col, user_info=user_info)
     except jwt.ExpiredSignatureError:
@@ -173,11 +224,6 @@ def update_like():
         action_receive = request.form["action_give"]
         print(post_id_receive)
 
-        doc = {
-            "_id": post_id_receive,
-            "id": user_info,
-            "type": type_receive
-        }
         my_query = {"_id": ObjectId(post_id_receive)}
         col = db.places.find_one(my_query)
         print(col)

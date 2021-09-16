@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../static/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <script>
         const clickLike = (post_id, type) => {
             let query = `.placeLike#${post_id}`
@@ -61,33 +62,43 @@
                 })
             }
         }
-        {#const render_my_page = () =>{#}
-        {#    let query = `.my-post-group`;#}
-        {#    let $my_post_group = $(query);#}
-        {#    let $image = $my_post_group.children("img");#}
-        {#    $.ajax({#}
-        {#            type: "GET",#}
-        {#            url: "/api/like",#}
-        {#            data: {#}
-        {#                post_id_give: post_id,#}
-        {#                type_give: type,#}
-        {#                action_give: "like"#}
-        {#            },#}
-        {#            success: function (response) {#}
-        {#                render_my_page#}
-        {#                console.log(response["count"])#}
-        {#            }#}
-        {#        })#}
-        {#
-        }#}
+        function posting() {
+            bsCustomFileInput.init()
+
+            console.log($('.title').val())
+            console.log($('.review').val())
+            console.log($('.continent').val())
+            console.log($('.file').val())
+
+            let title = $('.title').val()
+            let review = $(".review").val()
+            let continent = $('.continent').val()
+            let file = $('.file')[0].files[0]
+            let form_data = new FormData()
+
+            console.log(file);
+            form_data.append("continent_give", continent)
+            form_data.append("file_give", file)
+            form_data.append("title_give", title)
+            form_data.append("Review_give", review)
+
+            $.ajax({
+                type: "POST",
+                url: '/api/upload',
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.href = '/'
+                }
+            });
+        }
         function sign_out() {
             $.removeCookie('mytoken', {path: '/'});
             alert('로그아웃!')
             window.location.href = "/login"
-        }
-        const isLikeAndRed = (myId, likeList)=>{
-            const red = likeList.includes(myId) ? 'placeLike fill-red' : 'placeLike none';
-            return true;
         }
     </script>
 </head>

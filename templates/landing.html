@@ -32,28 +32,62 @@
             <div class="container">
                 <div class="row">
                     {% for place in places %}
-                    <div class="col-3 col-md-4">
-                        <a class="post-card">
-                            <div class="img-group">
-                                <img class="card-img-top" onclick="location.href='/detail/{{ place.title }}'" src="{{ place.img_url }}" alt="Card image cap">
-                                <div onclick="clickLike('{{ place._id }}','{{ user_info._id }}', 'heart')"
-                                     class="heart-circle">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100"
-                                         height="100">
-                                        <path d="M140 20C73 20 20 74 20 140c0 135 136 170 228 303 88-132 229-173 229-303 0-66-54-120-120-120-48 0-90 28-109 69-19-41-60-69-108-69z"
-                                              stroke="red" stroke-width="20" fill="none" id="{{ place._id }}"
-                                              {% if (user_info.id in place.like) %}class="placeLike fill-red"{% else %}class="placeLike"{% endif %}></path>
-                                    </svg>, place.like ["asdf", 'rrrr', ]
+                        <div class="col-3 col-md-4">
+                            <a class="post-card">
+                                <div class="img-group">
+                                    <img class="card-img-top" onclick="location.href='/detail/{{ place._id }}'"
+                                         src="{{ place.img_url }}" alt="Card image cap">
+                                    <div onclick="clickLike('{{ place._id }}','{{ user_info._id }}', 'heart')"
+                                         class="heart-circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100"
+                                             height="100">
+                                            <path d="M140 20C73 20 20 74 20 140c0 135 136 170 228 303 88-132 229-173 229-303 0-66-54-120-120-120-48 0-90 28-109 69-19-41-60-69-108-69z"
+                                                  stroke="red" stroke-width="20" fill="none" id="{{ place._id }}"
+                                                  {% if (user_info.id in place.like) %}class="placeLike fill-red"
+                                                  {% else %}class="placeLike"{% endif %}></path>
+                                        </svg>
+                                    </div>
                                 </div>
-                            </div>
-                            <h5 class="card-title">{{ place.title }}</h5>
-                            <p class="card-text">{{ place.description }}</p>
-                        </a>
-                    </div>
+                                <h5 class="card-title">{{ place.title }}</h5>
+                                <p class="card-text">{{ place.description }}</p>
+                            </a>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
         </section>
     </main>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            showReview();
+        });
+        function showReview() {
+            // 서버의 데이터를 받아오기
+            $.ajax({
+                type: "GET",
+                url: "/landing/reviews",
+                data: {},
+                success: function (response) {
+                    let reviews = response['all_reviews']
+                    for (let i = 0; i < reviews.length; i++) {
+                        let title = reviews[i]['title']
+                        let review = reviews[i]['description']
+                        let img = reviews[i]['img']
+                        console.log(title, review, img)
+                        let temp_html = `<div class="card" >
+                                             <img class="card-img-top" src="../static/img/${img}" id="card-img" alt="Card image cap">
+                                             </a>
+                                             <div class="card-body">
+                                             <h5 class="card-title">${title}</h5>
+                                             <p class="card-text">${review}</p>
+                                            </div>
+                                         </div>`;
+                        $('#cards-box').append(temp_html);
+                    }
+
+                }
+            })
+        }
+    </script>
 {% endblock content %}
 

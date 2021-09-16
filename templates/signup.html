@@ -40,7 +40,7 @@
                     alert("비밀번호는 숫자 + 영문 대소문자 + 특수문자로 조합해주세요.");
                     return;
                 }
-                
+
                 // 확인 비밀번호 체크
                 if(userPw !== confirmPw) {
                     alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
@@ -65,7 +65,12 @@
                         if (response['result'] == 'success') {
                             alert('회원가입이 완료되었습니다.')
                             window.location.href = '/'
-                        } else {
+                        } else if (response['result'] == 'overlap'){
+                            alert('아이디가 중복되었습니다.')
+                            window.location.replace('/signup')
+                            return
+                        }
+                        else {
                             alert(response['msg'])
                         }
                         window.location.href = '/login'

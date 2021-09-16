@@ -1,33 +1,25 @@
-{% extends 'base.html' %} 
-{% block title %}<title>travel-detail</title>{% endblock title %} 
-{% block scripts %}
-	<script>
-        function uploadPlace() {
-            $.ajax({
-                type: "POST",
-                url: "/api/upload/create",
-                data: {
-                    place_title_give: $('#placeTitle').val(),
-                    place_desc_give: $('#placeDesc').val(),
-                    place_img_give: $('#placeImg').val(),
-                    place_contient_give: $('#placeContient').val()
-                }
-            })
-        }
-    </script>
-{% endblock scripts %} 
+{% extends 'base.html' %}
+{% block title %}<title>travel-detail</title>{% endblock title %}
+{#{% block scripts %}#}
+{#    <script>#}
+{#        document.addEventListener("DOMContentLoaded", function () {#}
+{#            bsCustomFileInput.init()#}
+{#        });#}
+{#    </script>#}
+{#{% endblock scripts %}#}
 {% block content %}
     <section class="upload-page">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1 class="upload-title">내 장소 업로드</h1>
+                    <h1 class="upload-title title">내 장소 업로드</h1>
                 </div>
                 <div class="col-12">
-                    <input type="text" id="placeTitle" placeholder="장소가 어디인가요?">
+                    <input type="text" id="placeTitle" class="continent" placeholder="장소가 어디인가요?">
                 </div>
                 <div class="col-12">
-                    <textarea name="" id="placeDesc" cols="30" rows="10" placeholder="설명을 적어주세요"></textarea>
+                    <textarea name="" id="placeDesc" class="review" cols="30" rows="10"
+                              placeholder="설명을 적어주세요"></textarea>
                 </div>
                 <div class="col-6 upload-select">
                     <select name="continent" id="placeContient">
@@ -40,10 +32,10 @@
                     </select>
                 </div>
                 <div class="col-6 upload-select">
-                    <input type="file" id="placeImg">
+                    <input type="file" id="placeImg" class="file">
                 </div>
                 <div class="col-12 upload-btn">
-                    <button onclick="uploadPlace()">업로드</button>
+                    <button onclick="posting()">업로드</button>
                 </div>
             </div>
         </div>

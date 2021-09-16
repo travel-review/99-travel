@@ -14,6 +14,7 @@
     background-image: url(../static/testAssets/background.jpg);
     background-size: cover;
     background-position: center;
+    max-height: 400px
 }
 
 .header-img h1 {
@@ -39,21 +40,24 @@
 }
 
 .btn-group button {
-    border: 1px solid gainsboro;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #d9d9d9;
     width: 6.5rem;
     height: 2.5rem;
     border-radius: 20px;
+    transition: background-color ease-in-out 250ms;
     transition: color ease-in-out 170ms;
-    transition: background-color ease-in-out 200ms;
     transition: box-shadow ease-in-out 50ms;
 }
 
 .btn-group button:hover {
-    background-color: #42cef5;
+    background-color: #000;
     border: none;
     -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44); 
     box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
     color: #fff;
+    font-weight: 700;
 }
 
 .post-card-group {
@@ -108,13 +112,37 @@ header {
     width: 100%;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
-    background-color: aliceblue;
+    background-color: #fff;
     z-index: 3;
+    border: #d9d9d9 solid 1px;
+}
+
+header .col-2 {
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    width: 11em;
+    padding: 0.7em;
+    height: 2.3em;
 }
 
 a {
     display: block;
     text-align: right;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+header a:hover {
+    transform:scale(1.1);
     color: #000;
     text-decoration: none;
 }
@@ -132,13 +160,25 @@ a {
     text-align: right;
 }
 
+.logout-btn button {
+    font-weight: 700;
+    color: #dc143c;
+}
+
+.logout-btn button:hover {
+    transform:scale(1.1);
+    color: #dc143c;
+    text-decoration: none;
+}
+
+
 /* ---- detail page ----- */
 .detail-title {
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 700;
-    margin-top: 2em;
+    margin-top: 3em;
 }
 
 .img-group {
@@ -162,16 +202,21 @@ a {
 
 .detail-img img {
     border-radius: 10px;
-    width: 100%;
-    height: 50rem;
+    width: 40rem;
+    height: 40rem;
     position: center;
     object-fit: cover;
 }
 
-.detail-desc {
+.detail-desc-center {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top:2rem;
+}
+
+.detail-desc {
     padding-right: 3em;
     padding-left: 3em;
     text-align: center;
@@ -200,35 +245,6 @@ a {
 .fill-red {
     fill: red;
 }
-
-/* ---- signup ----- */
-.login-section {
-    margin-top: 20vh;
-}
-.login-section .container {
-    margin-top: 5em;
-}
-
-.login-section input {
-    width: 50vw;
-}
-
-.button {
-    margin-top: 5em;
-}
-
-.sign-up-group label {
-    text-align: left;
-    font-size: 0.8rem;
-    padding-left: 1rem;
-    line-height: 1rem;
-    color: blue;
-}
-
-.sign-up-group {
-    text-align: left;
-}
-
 
 
 /* ---- upload ----- */
@@ -274,12 +290,18 @@ a {
     margin-top: 3em;
 }
 
+.upload-btn button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
 .upload-btn button {
     background-color: #42cef5;
     border-radius: 10px;
-    width: 5em;
+    width: 10em;
     height: 2em;
     color: #fff;
+    font-weight: 700;
     
 }
 
@@ -317,10 +339,12 @@ select:hover {
 }
 
 .mypage-group img {
-    width: 15em;
-    height: 15em;
+    position: center;
+    object-fit: cover;
+    width: 20em;
+    height: 20em;
     background-size: cover;
-    margin-top: 0.7em;
+    margin-top: 2rem;
     margin-bottom: 1.4em;
     border-radius: 10px;
     -webkit-box-shadow: 9px 8px 18px 1px rgba(0,0,0,0.61); 
@@ -333,6 +357,22 @@ select:hover {
 
 .mypage-group h3 {
     font-weight: 700;
+    font-size: 2em;
+    margin-bottom: 1rem;
+}
+
+/* ---- signup ----- */
+
+.login-group label {
+    text-align: left;
+    font-size: 0.8rem;
+    padding-left: 1rem;
+    line-height: 1rem;
+    color: blue;
+}
+
+.login-group {
+    text-align: left;
 }
 
 /* ---- login ----- */
@@ -356,14 +396,19 @@ select:hover {
 }
 
 .sign-input {
-    width: 25vw;
-    height: 3vw;
+    min-width: 25vw;
+    min-height: 4vw;
     border: none;
     -webkit-box-shadow: 4px 9px 15px 2px rgba(0,0,0,0.24); 
     box-shadow: 4px 9px 15px 2px rgba(0,0,0,0.24);
     border-radius: 10px;
     padding-left: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.3rem;
+}
+
+.sign-input, .box-btn {
+    min-width: 500px;
+    min-height: 60px;
 }
 
 .box-btn {
@@ -377,12 +422,28 @@ select:hover {
     box-shadow: 4px 9px 15px 2px rgba(0,0,0,0.24);
     border-radius: 10px;
     font-size: 1rem;
-    margin-bottom: 1.5rem;
     transition: background-color ease-in-out 150ms;
 }
 
+.login-box {
+    margin-bottom: 30px;
+}
+
 .box-btn:hover {
-    background-color: #42cef5;
+    background-color: #000;
+    color: #fff;
+}
+
+.box-btn a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.box-btn a:hover {
     color: #fff;
 }
 
@@ -396,11 +457,16 @@ select:hover {
 }
 
 .travel-group {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     background-color: #fff;
     padding: 4em;
     border-radius: 30px;
     -webkit-box-shadow: 3px 2px 15px 10px rgba(0,0,0,0.31); 
     box-shadow: 3px 2px 15px 10px rgba(0,0,0,0.31);
+    min-width: 500px;
 }
 
 

@@ -3,6 +3,68 @@
     margin: 0;
 }
 
+.go-to-top {
+    z-index: 3;
+    position: fixed;
+    right: 8rem;
+    bottom: 4rem;
+    background-color:#fff;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
+    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
+    transition: background-color ease-in-out 250ms;
+    transition: color ease-in-out 170ms;
+}
+
+.go-to-top:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* ---- footer ----- */
+footer{
+    position: fiexd;
+    bottom:0;
+    width: 100vw;
+    height: 7.5rem;
+    background-color: #000;
+    color: #fff;
+}
+
+
+footer h1 {
+    width: 100%;
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+footer .row {
+    height: 7.5rem;
+}
+
+footer .col-6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+
+footer li:nth-child(2){
+    margin: 0 10px;
+}
+
+
+
 /* ---- landing ----- */
 .header-img {
     display: flex;
@@ -149,6 +211,7 @@ header a:hover {
 
 .header-logo {
     text-align: left;
+    border-radius: 8px;
 }
 
 .header-nav {
@@ -214,6 +277,7 @@ header a:hover {
     justify-content: center;
     align-items: center;
     margin-top:2rem;
+    border-bottom: 1px solid #d9d9d9;
 }
 
 .detail-desc {
@@ -221,6 +285,7 @@ header a:hover {
     padding-left: 3em;
     text-align: center;
     font-size: 1em;
+    padding-bottom: 3em;
 }
 
 .detail-img svg {
@@ -244,6 +309,55 @@ header a:hover {
 
 .fill-red {
     fill: red;
+}
+
+.comment-input-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+#commentInput {
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
+    box-shadow: 3px 5px 13px -1px rgba(0,0,0,0.44);
+    border-radius: 12px;
+    height: 7rem;
+    width: 100%;
+    padding: 20px
+}
+
+.comment-input-style button {
+    padding: 1em;
+    background-color: #d9d9d9;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: background-color ease-in 200ms;
+    transition: color ease-in 50ms;
+}
+
+.comment-input-style button:hover{
+    background-color: #000;
+    color: #fff;
+}
+
+.comment-writer {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.comment-desc {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.comment-view-group {
+    margin-top: 3rem;
+    margin-bottom: 0.8rem;
+}
+
+.comment-view-group:last-child {
+    margin-bottom: 4rem;
 }
 
 
@@ -353,6 +467,7 @@ select:hover {
 .mypage-group img:hover {
     opacity: 50%;
     transition: opactiy ease-in-out 300ms;
+    cursor: pointer;
 }
 
 .mypage-group h3 {
@@ -467,6 +582,11 @@ select:hover {
     -webkit-box-shadow: 3px 2px 15px 10px rgba(0,0,0,0.31); 
     box-shadow: 3px 2px 15px 10px rgba(0,0,0,0.31);
     min-width: 500px;
+}
+
+.space {
+    width: 100vw;
+    margin-bottom: 10rem;
 }
 
 

@@ -206,11 +206,33 @@ def detail(placeId):
         user_info = db.user.find_one({"id": payload['id']})
         my_query = {"_id": ObjectId(placeId)}
         col = db.places.find_one(my_query)
-        return render_template('detail.html', place=col, user_info=user_info)
+        comments = list(db.comments.find({"comment_place": placeId}))
+        if(comments):
+            return render_template('detail.html', place=col, user_info=user_info, comments=comments)
+        else:
+            return render_template('detail.html', place=col, user_info=user_info, comments="false")
+
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
+@app.route('/api/comment', methods=['POST'])
+def upload_comment():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"id": payload["id"]})
+        id = payload.get('id')
+        comment_receive = request.form['comment_give']
+        place_receive = request.form['place_give']
+        db.comments.insert_one({'comment': comment_receive, 'writer_id': id, 'comment_place':place_receive})
+        return jsonify({'result': 'success', 'msg': '리뷰가 등록되었습니다 !'})
+
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
 
 
 @app.route('/api/like', methods=['POST'])

@@ -1,5 +1,25 @@
 {% extends 'base.html' %}
 {% block title %}<title>travel-detail</title>{% endblock title %}
+{% block scripts %}
+    <script>
+        const uploadComment = ()=>{
+            const url = window.location.href;
+            const idStart = url.indexOf('detail')+7;
+            const detailPageId = url.slice(idStart);
+            console.log(detailPageId);
+            $.ajax({
+                type: "POST",
+                url: '/api/comment',
+                data: { comment_give : $('#commentInput').val(), place_give : detailPageId },
+                success: function (response) {
+                    alert(response["msg"]);
+                    location.reload();
+                }
+            })
+        }
+
+    </script>
+{% endblock scripts %}
 {% block content %}
     <section class="detail-group">
         <div class="container">
@@ -28,6 +48,24 @@
                 <div class="col-12 detail-desc-center">
                         <p class="detail-desc">{{ place.description }}</p>
                 </div>
+                <div class="col-10 comment-input-style">
+                    <textarea name="" id="commentInput" cols="80" rows="2" placeholder="리뷰를 작성해주세요 (160자 이내)"></textarea>
+                </div>
+                <div class="col-2 comment-input-style">
+                    <button type="submit" onclick="uploadComment()">리뷰 등록하기</button>
+                </div>
+            </div>
+            <div class="row">
+                {% if comments=="false" %}
+                    <div class="space"></div>
+                {% else %}
+                    {% for commentList in comments %}
+                        <div class="col-6 comment-view-group">
+                            <h5 class="comment-writer">{{ commentList.writer_id }}</h5>
+                            <p class="comment-desc" id="commentDesc">{{ commentList.comment }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </section>

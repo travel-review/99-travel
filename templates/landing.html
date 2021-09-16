@@ -17,7 +17,6 @@
                 <div class="row">
                     <div class="col-12 btn-group">
                         <button onclick="location.href='/'">전체</button>
-                        <button onclick="location.href='/nav/seoul'">서울</button>
                         <button onclick="location.href='/nav/europe'">유럽</button>
                         <button onclick="location.href='/nav/america'">아메리카</button>
                         <button onclick="location.href='/nav/east_asia'">동아시아</button>
@@ -36,7 +35,9 @@
                             <a class="post-card">
                                 <div class="img-group">
                                     <img class="card-img-top" onclick="location.href='/detail/{{ place._id }}'"
-                                         src="{{ place.img_url }}" alt="Card image cap">
+                                         {% if "/" in place.img_url %} src="{{ place.img_url }}"
+                                         {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
+                                         alt="Card image cap">
                                     <div onclick="clickLike('{{ place._id }}','{{ user_info._id }}', 'heart')"
                                          class="heart-circle">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100"
@@ -57,37 +58,5 @@
             </div>
         </section>
     </main>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            showReview();
-        });
-        function showReview() {
-            // 서버의 데이터를 받아오기
-            $.ajax({
-                type: "GET",
-                url: "/landing/reviews",
-                data: {},
-                success: function (response) {
-                    let reviews = response['all_reviews']
-                    for (let i = 0; i < reviews.length; i++) {
-                        let title = reviews[i]['title']
-                        let review = reviews[i]['description']
-                        let img = reviews[i]['img']
-                        console.log(title, review, img)
-                        let temp_html = `<div class="card" >
-                                             <img class="card-img-top" src="../static/img/${img}" id="card-img" alt="Card image cap">
-                                             </a>
-                                             <div class="card-body">
-                                             <h5 class="card-title">${title}</h5>
-                                             <p class="card-text">${review}</p>
-                                            </div>
-                                         </div>`;
-                        $('#cards-box').append(temp_html);
-                    }
-
-                }
-            })
-        }
-    </script>
 {% endblock content %}
 

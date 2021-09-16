@@ -64,15 +64,9 @@
         }
         function posting() {
             bsCustomFileInput.init()
-
-            console.log($('.title').val())
-            console.log($('.review').val())
-            console.log($('.continent').val())
-            console.log($('.file').val())
-
             let title = $('.title').val()
             let review = $(".review").val()
-            let continent = $('.continent').val()
+            let continent = $('.continent').find("option:selected").data("sub");
             let file = $('.file')[0].files[0]
             let form_data = new FormData()
 

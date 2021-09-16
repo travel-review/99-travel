@@ -11,7 +11,10 @@
                     {% for place in submitted_places %}
                         <div class="col-12">
                             <div class="my-post-group">
-                                <img src="{{ place.img_url }}" alt="place-img">
+                                <img
+                                 {% if "/" in place.img_url %} src="{{ place.img_url }}"
+                                 {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
+                                 alt="place-img">
                                 <h4>{{ place.title }}</h4>
                             </div>
                         </div>
@@ -28,7 +31,10 @@
                     {% for place in like_places %}
                         <div class="col-12">
                             <div class="my-like-group">
-                                <img src="{{place.img_url}}" alt="place-img">
+                                <img
+                                 {% if "/" in place.img_url %} src="{{ place.img_url }}"
+                                 {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
+                                alt="place-img">
                                 <h4>{{ place.title }}</h4>
                             </div>
                         </div>

@@ -5,13 +5,16 @@ from urllib.request import urlopen
 
 import requests
 
-from app import db
+from pymongo import MongoClient
 from faker import Faker
 
 factory = Faker()
 continents = tuple(['seoul', 'europe', 'america', 'east_asia', 'southeast_asi', 'oceania', 'ect'])  # TODO: ect ...?
 
 _FALLBACK_URL = 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw'
+
+client = MongoClient('127.0.0.1')
+db = client.my_sparta
 
 
 def insert_fake_places(n):

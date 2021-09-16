@@ -120,7 +120,7 @@ def nav(continent):
     try:
         places = list(db.places.find({"continent": continent}))
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"username": payload["id"]})
+        user_info = db.users.find_one({"id": payload["id"]})
         print(payload['id'])
         print(places)
         return render_template('landing.html', user_info=user_info, places=places)
@@ -139,7 +139,7 @@ def write_review():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = payload['id']
+        user_info = db.users.find_one({"id": payload["id"]})
 
         title_receive = request.form['title_give']
         review_receive = request.form['Review_give']
@@ -159,7 +159,7 @@ def write_review():
         doc = {
             'title': title_receive,
             'description': review_receive,
-            'userid': user_info,
+            'userId': payload["id"],
             'img_url': f'{filename}.{extension}',
             'like': [],
             'continent': continent_receive,
@@ -195,7 +195,7 @@ def api_mypage():
 @app.route('/landing/reviews', methods=['GET'])
 def read_reviews():
 
-    reviews = list(db.places.find({}, {'_id': False,'userid':False}))
+    reviews = list(db.places.find({}, {'_id': False}))
     return jsonify({'all_reviews': reviews})
 
 @app.route('/detail/<placeId>')

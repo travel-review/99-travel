@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="91b37df8-4095-45e1-9757-0cd868e9b58b" name="Changes" comment="" />
+    <list default="true" id="91b37df8-4095-45e1-9757-0cd868e9b58b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/99-trevel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/99-trevel.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/mypage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mypage.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +41,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1yCPeT0xltcRvWDaY1op2noiVSM" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,7 +55,33 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/testAssets" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.app">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="99-trevel" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="99-trevel" type="Python.FlaskServer">
       <module name="99-trevel" />
       <option name="target" value="$PROJECT_DIR$/app.py" />
@@ -41,6 +97,11 @@
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.app" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -56,12 +117,50 @@
       <workItem from="1631761521639" duration="50000" />
       <workItem from="1631761775761" duration="15000" />
     </task>
+    <task id="LOCAL-00001" summary="Update Styles &amp; Responsive Styles">
+      <created>1631773878544</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631773878544</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/99_trevel$99_trevel.coverage" NAME="99-trevel Coverage Results" MODIFIED="1631759740642" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update Styles &amp; Responsive Styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Styles &amp; Responsive Styles" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1899" height="118" key="GridCell.Tab.0.bottom" timestamp="1631814450337">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1899" height="118" key="GridCell.Tab.0.bottom/-1920.23.1920.1057/1920.23.1792.1097/0.23.1920.1057@0.23.1920.1057" timestamp="1631814450337" />
+    <state width="1899" height="118" key="GridCell.Tab.0.center" timestamp="1631814450336">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1899" height="118" key="GridCell.Tab.0.center/-1920.23.1920.1057/1920.23.1792.1097/0.23.1920.1057@0.23.1920.1057" timestamp="1631814450336" />
+    <state width="1899" height="118" key="GridCell.Tab.0.left" timestamp="1631814450335">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1899" height="118" key="GridCell.Tab.0.left/-1920.23.1920.1057/1920.23.1792.1097/0.23.1920.1057@0.23.1920.1057" timestamp="1631814450335" />
+    <state width="1899" height="118" key="GridCell.Tab.0.right" timestamp="1631814450337">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1899" height="118" key="GridCell.Tab.0.right/-1920.23.1920.1057/1920.23.1792.1097/0.23.1920.1057@0.23.1920.1057" timestamp="1631814450337" />
   </component>
 </project>

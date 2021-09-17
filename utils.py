@@ -1,22 +1,31 @@
-import json
 import typing
 import random
-from urllib.request import urlopen
-
 import requests
-
 from pymongo import MongoClient
 from faker import Faker
+
+# 더미데이터를 만들어주는 코드
 
 factory = Faker()
 continents = tuple(['seoul', 'europe', 'america', 'east_asia', 'southeast_asi', 'oceania', 'ect'])  # TODO: ect ...?
 
+# 더미데이터 제공 url
 _FALLBACK_URL = 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw'
 
 client = MongoClient('127.0.0.1')
 db = client.my_sparta
 
+# db.places.insert_one(
+#     {
+#         'title': '장소',
+#         'description': '설명',
+#         'userId': '유저의 아이디',
+#         'img_url': 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw',
+#         'like': [],
+#         'continent': 'europe' 지정된 형식으로 받아야 합니다.
+#     })
 
+## 더미데이터를 n개만큼 삽입합니다.
 def insert_fake_places(n):
     try:
         places = _gen_fake_place_dicts(n)
@@ -27,6 +36,7 @@ def insert_fake_places(n):
         # raise err
 
 
+# 더미데이터의 db에 들어갈 데이터를 생성합니다.
 def _gen_fake_place_dicts(n) -> typing.List:
     # n = # of places to generate
     results = []
@@ -43,7 +53,7 @@ def _gen_fake_place_dicts(n) -> typing.List:
         results.append(place)
     return results
 
-
+# 더미데이터를 외부 api를 이용하여 뽑아옵니다.
 def _get_random_place_image(continent_name):
     base_url = "https://source.unsplash.com"
     base_img_size = '210x132'

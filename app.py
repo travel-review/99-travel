@@ -1,9 +1,9 @@
-from flask import Flask, request, jsonify, redirect, url_for, make_response, flash, render_template, session
-import os
-from datetime import datetime, timedelta
-from functools import wraps
+from flask import Flask, request, jsonify, redirect, url_for, render_template
+from datetime import datetime
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+from datetime import timedelta
+import os
 import jwt
 import hashlib
 
@@ -11,24 +11,31 @@ import utils
 
 app = Flask(__name__)
 
+# 배포시에는 mongodb://user:password@ip주소 형식으로 변경합니다.
 client = MongoClient('127.0.0.1')
-db = client.my_sparta
+db = client.travel_plus
 
 _FAKE_PLACE_NUM = 5
 SECRET_KEY = 'SPARTA'
 
 
+# 더미데이터를 받아옵니다. 다양한 이미지 사이즈를 preview합니다.
+@app.route('/get_db')
+def tmp_get_db():
+    utils.insert_fake_places(_FAKE_PLACE_NUM)
+    return render_template('login.html')
+
+
+# 시작 페이지. 사용자 토큰을 확인 후 login 페이지나 landing 페이지로 보내줍니다.
 @app.route('/')
 def main():
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('my_token')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
         collection = db['places']
+        # 모든 장소를 검색합니다.
         places = collection.find({})
-
-        print(user_info)
-        print(places)
         return render_template('landing.html', user_info=user_info, places=places)
     except jwt.ExpiredSignatureError:
         print("로그인 시간이 만료되었습니다.")
@@ -38,90 +45,76 @@ def main():
         return redirect(url_for("login"))
 
 
-@app.route('/get_db')
-def tmp_get_db():
-    utils.insert_fake_places(_FAKE_PLACE_NUM)
-    # db.places.insert_one(
-    #     {
-    #         'title': '경복궁',
-    #         'description': '투어 & 박물관이 있는 역사적인 궁전',
-    #         'userId': '61405336dea13163fda7257e',
-    #         'img_url': 'https://t2.gstatic.com/images?q=tbn:ANd9GcQHjpQ16ZIupZR7ENzIyyXJr4v_pEWzML9EFy1SqyuwTgpfP_YnH8r-Mq96CypOs-Vk0eWHwWEIB-gy1uJSDp9kfw',
-    #         'like': ['rrrr'],
-    #         'continent': 'seoul'
-    #     })
-    return render_template('login.html')
-
-
+# 로그인 페이지
 @app.route('/login')
 def login():
     return render_template('login.html')
 
 
+# 로그인 api
 @app.route('/api/signin', methods=['POST'])
-def api_signin():
+def api_sign_in():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
 
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-
-    # id, 암호화된pw을 가지고 해당 유저를 찾습니다.
+    # id, 암호화된 pw을 가지고 해당 유저를 찾습니다.
     result = db.user.find_one({'id': id_receive, 'pw': pw_hash})
 
-    # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result:
-        # JWT 토큰에는, payload와 시크릿키가 필요합니다.
-        # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
-        # 아래에선 id와 exp를 담았습니다. 즉, JWT 토큰을 풀면 유저ID 값을 알 수 있습니다.
-        # exp에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
+        # payload에는 유저의 id와 만료시간이 들어있습니다.
         payload = {
             'id': id_receive,
+            'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)
         }
         token = jwt.encode(payload, SECRET_KEY,
                            algorithm='HS256').decode('utf-8')
         # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})
-    # 찾지 못하면
+    # 찾지 못하면 fail을 반환합니다.
     else:
-        print('아이디비번 x')
+        print('아이디/비밀번호가 일치하지 않습니다.')
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 
+# 회원가입 페이지
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
 
 
+# 회원가입 api
 @app.route('/api/signup', methods=['POST'])
-def api_signup():
+def api_sign_up():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    overCheck = db.user.find_one({'id': id_receive})
-    if(overCheck):
+    over_check = db.user.find_one({'id': id_receive})
+    # 현재 존재하는 id인지 중복체크합니다.
+    if over_check:
         return jsonify({'result': 'overlap'})
     else:
-        db.user.insert_one(
-            {'id': id_receive, 'pw': pw_hash})
+        db.user.insert_one({'id': id_receive, 'pw': pw_hash})
         return jsonify({'result': 'success'})
 
 
+# 메인 페이지
 @app.route('/landing')
 def landing():
     return render_template('landing.html')
 
 
-# 네비게이션 api 부분
+# 메인 페이지 네비게이션 api
 @app.route('/nav/<continent>')
 def nav(continent):
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('my_token')
     try:
         places = list(db.places.find({"continent": continent}))
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"id": payload["id"]})
-        print(payload['id'])
+        print(user_info)
         print(places)
         return render_template('landing.html', user_info=user_info, places=places)
     except jwt.ExpiredSignatureError:
@@ -130,36 +123,43 @@ def nav(continent):
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
+# 업로드 페이지
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
 
+
+# 업로드 api
 @app.route('/api/upload', methods=['POST'])
 def write_review():
-    white_list = ['JPG','jpg','gif','png','PNG']
-    token_receive = request.cookies.get('mytoken')
+    white_list = ['JPG', 'jpg', 'gif', 'png', 'PNG', 'webp']
+    token_receive = request.cookies.get('my_token')
     try:
-
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"id": payload["id"]})
-
+        # 타이틀
         title_receive = request.form['title_give']
+        # 설명
         review_receive = request.form['Review_give']
+        # 대륙이름
         continent_receive = request.form['continent_give']
+        # 파일
         file = request.files['file_give']
-
         today = datetime.now()
-        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+        # 현재시간
+        my_time = today.strftime('%Y-%m-%d-%H-%M-%S')
+        # 확장자
         extension = file.filename.split('.')[-1]
+        # 확장자에 따라 올릴 수 있는 파일을 제한합니다.
         if extension not in white_list:
             return jsonify({'result': 'fail', 'msg': '올바른 파일 형식이 아닙니다!'})
-        filename = f'file-{mytime}'
+        filename = f'file-{my_time}'
         save_to = f'static/img/{filename}.{extension}'
         print(file)
         print(save_to)
         print(os.getcwd())
         file.save(save_to)
 
+        # 업로드 파일을 모델 형식에 맞추어 db에 추가합니다.
         doc = {
             'title': title_receive,
             'description': review_receive,
@@ -169,24 +169,25 @@ def write_review():
             'continent': continent_receive,
         }
         db.places.insert_one(doc)
-        print(1234)
         return jsonify({'result': 'success', 'msg': '저장완료!'})
-
     except jwt.ExpiredSignatureError:
         return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
 
-# 마이페이지 부분
+
+# 마이 페이지
 @app.route('/api/mypage')
-def api_mypage():
-    token_receive = request.cookies.get('mytoken')
+def api_my_page():
+    token_receive = request.cookies.get('my_token')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        # 내가 소개한 여행지 리스트
         submitted_places = list(db.places.find({'userId': payload['id']}))
+        # 내가 좋아요 한 여행지 리스트
         like_places = list(db.places.find({'like': payload['id']}))
+
         user_info = db.user.find_one({"id": payload['id']})
-        print(payload['id'])
         return render_template('mypage.html', user_info=user_info, submitted_places=submitted_places,
                                like_places=like_places)
     except jwt.ExpiredSignatureError:
@@ -195,102 +196,105 @@ def api_mypage():
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
-# 리스팅
+# 메인 페이지 리스팅 api
 @app.route('/landing/reviews', methods=['GET'])
 def read_reviews():
-
     reviews = list(db.places.find({}, {'_id': False}))
     return jsonify({'all_reviews': reviews})
 
-@app.route('/detail/<placeId>')
-def detail(placeId):
-    token_receive = request.cookies.get('mytoken')
+
+# 상세 페이지
+@app.route('/detail/<place_id>')
+def detail(place_id):
+    token_receive = request.cookies.get('my_token')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
-        my_query = {"_id": ObjectId(placeId)}
-        login_id = payload.get('id')
+        my_query = {"_id": ObjectId(place_id)}
         col = db.places.find_one(my_query)
-        comments = list(db.comments.find({"comment_place": placeId}))
-        if(comments):
+        # 등록된 모든 코멘트 리스트
+        comments = list(db.comments.find({"comment_place": place_id}))
+        if comments:
             return render_template('detail.html', place=col, user_info=user_info, comments=comments)
         else:
             return render_template('detail.html', place=col, user_info=user_info, comments="false")
-
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
+
+# 댓글 api
 @app.route('/api/comment', methods=['POST'])
 def upload_comment():
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('my_token')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"id": payload["id"]})
-        id = payload.get('id')
+        # 댓글 내용
         comment_receive = request.form['comment_give']
+        # 댓글을 작성한 게시글의 고유 id
         place_receive = request.form['place_give']
-        db.comments.insert_one({'comment': comment_receive, 'writer_id': id, 'comment_place':place_receive})
+        # 댓글을 작성한 게시글에 맞게 comments db에 댓글을 추가합니다.
+        db.comments.insert_one({'comment': comment_receive, 'writer_id': payload["id"], 'comment_place': place_receive})
         return jsonify({'result': 'success', 'msg': '댓글이 등록되었습니다 !'})
-
     except jwt.ExpiredSignatureError:
         return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
 
 
-
+# 댓글 삭제 api
 @app.route('/api/comment/remove', methods=['POST'])
 def remove_comment():
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('my_token')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"id": payload["id"]})
-        id = payload.get('id')
-        print(id)
+        print(payload["id"])
+        # 댓글을 작성한 사람의 고유 id
         comment_uni_id_receive = ObjectId(request.form['comment_give'])
+        # 댓글을 작성한 사람의 유저 id
         comment_writer_receive = request.form['writer_give']
-        if(id==comment_writer_receive):
-            db.comments.delete_one({'_id': comment_uni_id_receive})
-            return jsonify({'result': 'success','msg': '댓글이 삭제되었습니다.'})
-        else:
-            print(123)
+        # 일치하는 댓글을 db에서 삭제합니다.
+        db.comments.delete_one({'_id': comment_uni_id_receive, 'writer_id': comment_writer_receive})
+        return jsonify({'result': 'success', 'msg': '댓글이 삭제되었습니다.'})
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
 
+
+# 게시글 삭제 api
 @app.route('/api/review/remove', methods=['POST'])
 def remove_review():
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('my_token')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         place_id_receive = ObjectId(request.form['_id_give'])
         review_writer_receive = request.form['writer_give']
-        user_info = db.users.find_one({"id": payload["id"]})
-        id = payload.get('id')
+
         print(place_id_receive)
         print(review_writer_receive)
-        print(id)
-        if (id == review_writer_receive):
-            db.places.delete_one({'_id': place_id_receive})
-            return jsonify({'result': 'success', 'msg': '리뷰가 삭제되었습니다.'})
+        print(payload["id"])
+        # 일치하는 게시글을 db에서 삭제합니다.
+        db.places.delete_one({'_id': place_id_receive, 'id': review_writer_receive})
+        return jsonify({'result': 'success', 'msg': '리뷰가 삭제되었습니다.'})
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
 
+
+# 하트 api
 @app.route('/api/like', methods=['POST'])
 def update_like():
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('my_token')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"id": payload["id"]})
+        # 게시글을 올린 id
         post_id_receive = request.form["post_id_give"]
-        type_receive = request.form["type_give"]
+        # post로 받은 action (좋아요/취소)
         action_receive = request.form["action_give"]
         print(post_id_receive)
 
@@ -298,21 +302,24 @@ def update_like():
         col = db.places.find_one(my_query)
         print(col)
         if action_receive == "like":
+            # 현재 접속중인 아이디를 게시글의 좋아요 리스트에 추가합니다. 아이디에 따라 좋아요 정보가 재 로그인 후에도 남아있습니다.
             db.places.update_one(my_query, {"$push": {"like": payload["id"]}})
             count = db.places.find_one(my_query)["like"]
             print(db.places.find_one(my_query))
+            # 좋아요 수 표시는 구현되어 있으나 기획상 삭제되었습니다.
             print(len(count))
             return jsonify({"result": "success", 'msg': 'updated', "count": len(count)})
         else:
             db.places.update_one(my_query, {"$pull": {"like": payload["id"]}})
             count = db.places.find_one(my_query)["like"]
+            # 좋아요 수 표시는 구현되어 있으나 기획상 삭제되었습니다.
             print(len(count))
             return jsonify({"result": "success", 'msg': 'updated', "count": len(count)})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("login"))
 
 
+# 클린 코드를 위해 경고메세지도 최소화했습니다.
 if __name__ == '__main__':
-    # TODO: 한번만 실행 강제 시킬 것, 아니면 /get_db api 호출 할 것
-    # utils.insert_fake_places(_FAKE_PLACE_NUM)
-    app.run(debug=True)
+    app.runapp.run(host='0.0.0.0', port=5000, debug=True)
+

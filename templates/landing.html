@@ -39,7 +39,7 @@
                                          {% if "/" in place.img_url %} src="{{ place.img_url }}"
                                          {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
                                          alt="Card image cap">
-                                    <div onclick="clickLike('{{ place._id }}','{{ user_info._id }}', 'heart')"
+                                    <div onclick="clickLike('{{ place._id }}', '{{ user_info._id }}')"
                                          class="heart-circle">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100"
                                              height="100">

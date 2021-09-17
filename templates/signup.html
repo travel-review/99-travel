@@ -1,103 +1,87 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <title>Signup</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="../static/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+{% extends 'base.html' %}
+{% block title %}<title>SignUp</title>{% endblock title %}
+{% block scripts %}
+<script>
+    function register() {
+        // 빈칸 체크
+        let userId = $("#userid").val();
+        let userPw = $("#userpw").val();
+        let confirmPw = $("#confirmpw").val();
+        if (userId === "" || userPw === "" || confirmPw === "") {
+            alert("전부 작성해주세요.");
+            return;
+        }
 
-        <script>
-            function register() {
+        // 글자수 체크
+        if (!checkLength(userId, 4, 11)) {
+            alert("아이디는 5자 이상, 10자 이하입니다.");
+            return;
+        } else if (!checkLength(userPw, 7, 17)) {
+            alert("비밀번호는 8자 이상, 16자 이하입니다.");
+            return;
+        }
 
-                 // 빈칸 체크
-                let userId = $("#userid").val();
-                let userPw = $("#userpw").val();
-                let confirmPw = $("#confirmpw").val();
-                if(userId === "" || userPw==="" || confirmPw==="") {
-                    alert("전부 작성해주세요.");
-                    return;
-                }
+        if (!IdCheckPattern.test(userId)) {
+            alert("아이디는 숫자 + 영문 대소문자 조합만 가능합니다.");
+            return;
+        } else if (!PwCheckPattern.test(userPw)) {
+            alert("비밀번호는 숫자 + 영문 대소문자 + 특수문자로 조합해주세요.");
+            return;
+        }
 
-                // 글자수 체크
-                if(!checkLength(userId, 4,11)) {
-                    alert("아이디는 5자 이상, 10자 이하입니다.");
-                    return;
-                } else if(!checkLength(userPw, 7,17)) {
-                    alert("비밀번호는 8자 이상, 16자 이하입니다.");
-                    return;
-                }
+        // 확인 비밀번호 체크
+        if (userPw !== confirmPw) {
+            alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+            return;
+        } else if (userPw === userId) {
+            alert("아이디와 비밀번호가 같습니다.");
+            return;
+        }
 
-                if(!IdCheckPattern.test(userId)) {
-                    alert("아이디는 숫자 + 영문 대소문자 조합만 가능합니다.");
-                    return;
-                } else if(!PwCheckPattern.test(userPw)) {
-                    alert("비밀번호는 숫자 + 영문 대소문자 + 특수문자로 조합해주세요.");
-                    return;
-                }
-
-                // 확인 비밀번호 체크
-                if(userPw !== confirmPw) {
-                    alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-                    return;
-                } else if(userPw === userId) {
-                    alert("아이디와 비밀번호가 같습니다.");
-                    return;
-                }
-
-
-
-
-                $.ajax({
-                    type: "POST",
-                    url: "/api/signup",
-                    data: {
-                        id_give: $('#userid').val(),
-                        pw_give: $('#userpw').val(),
-                        pw_confirm_give: $('#confirmpw').val(),
-                    },
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            alert('회원가입이 완료되었습니다.')
-                            window.location.href = '/'
-                        } else if (response['result'] == 'overlap'){
-                            alert('아이디가 중복되었습니다.')
-                            window.location.replace('/signup')
-                            return
-                        }
-                        else {
-                            alert(response['msg'])
-                        }
-                        window.location.href = '/login'
-                    }
-                })
-            }
-
-            // 글자수 제한
-            const checkLength = (val,min,max) => {
-                if(val.length < min) {
-                    return false;
-                } else if(val.length > max) {
-                    return false;
+        $.ajax({
+            type: "POST",
+            url: "/api/signup",
+            data: {
+                id_give: $('#userid').val(),
+                pw_give: $('#userpw').val(),
+                pw_confirm_give: $('#confirmpw').val(),
+            },
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    alert('회원가입이 완료되었습니다.')
+                    window.location.href = '/'
+                } else if (response['result'] == 'overlap') {
+                    alert('아이디가 중복되었습니다.')
+                    window.location.replace('/signup')
+                    return
                 } else {
-                    return true;
+                    alert(response['msg'])
                 }
+                window.location.href = '/login'
             }
+        })
+    }
 
-            // ID 패턴 체크, 최소 5자리부터 10자까지, 숫자, 영문 대소문자만
-            const IdCheckPattern = /^[a-zA-Z0-9]+$/;
-            // PW 패턴 체크, 최소 8자리부터 16자까지, 숫자, 영문 대소문자, 특수문자만
-            const PwCheckPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+    // 글자수 제한
+    const checkLength = (val, min, max) => {
+        if (val.length < min) {
+            return false;
+        } else if (val.length > max) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-
-        </script>
-    </head>
-    <body>
-        <main class="sign-page">
-            <div class="container">
+    // ID 패턴 체크, 최소 5자리부터 10자까지, 숫자, 영문 대소문자만
+    const IdCheckPattern = /^[a-zA-Z0-9]+$/;
+    // PW 패턴 체크, 최소 8자리부터 16자까지, 숫자, 영문 대소문자, 특수문자만
+    const PwCheckPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/;
+</script>
+{% block scripts %}
+{% block content %}
+    <main class="sign-page">
+        <div class="container">
             <div class="row travel-group">
                 <div class="col-12">
                     <h1>Travel-Reviews 회원가입</h1>
@@ -105,16 +89,18 @@
                 <div class="col-12">
                     <div class="login-group">
                         <label for="userid">5~10자, 숫자 + 영문 대소문자 조합</label><br>
-                        <input type="text" id="userid" placeholder="New ID ( 5 ~ 10 자)" class="sign-input" min="5" max="10"><br>
+                        <input type="text" id="userid" placeholder="New ID ( 5 ~ 10 자)" class="sign-input" min="5"
+                               max="10"><br>
                         <label for="userpw">8~16자, 숫자 + 영문 대소문자 + 특수문자 조합</label><br>
-                        <input type="password" id="userpw" placeholder="New Password ( 8 ~ 16자 )" class="sign-input" min="8" max="16"><br>
+                        <input type="password" id="userpw" placeholder="New Password ( 8 ~ 16자 )" class="sign-input"
+                               min="8"
+                               max="16"><br>
                         <label for="confirmpw">비밀번호를 한번 더 입력해주세요.</label><br>
                         <input type="password" id="confirmpw" placeholder="CONFIRM Password" class="sign-input"><br>
                     </div>
                 </div>
-                    <button onclick="register()" class="box-btn">회원가입</button>
+                <button onclick="register()" class="box-btn">회원가입</button>
             </div>
         </div>
-        </main>
-    </body>
-</html>
+    </main>
+{% endblock content %}

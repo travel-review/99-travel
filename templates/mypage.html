@@ -1,5 +1,5 @@
-{% extends 'base.html' %} 
-{% block title %}<title>my-page</title>{% endblock title %} 
+{% extends 'base.html' %}
+{% block title %}<title>my-page</title>{% endblock title %}
 {% block content %}
     <main class="mypage-group">
         <section class="my-upload-list">
@@ -12,9 +12,9 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="my-post-group">
                                 <img onclick="location.href='/detail/{{ place._id }}'"
-                                 {% if "/" in place.img_url %} src="{{ place.img_url }}"
-                                 {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
-                                 alt="place-img">
+                                        {% if "/" in place.img_url %} src="{{ place.img_url }}"
+                                        {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
+                                     alt="place-img">
                                 <h4>{{ place.title }}</h4>
                             </div>
                         </div>
@@ -32,9 +32,9 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="my-like-group">
                                 <img onclick="location.href='/detail/{{ place._id }}'"
-                                 {% if "/" in place.img_url %} src="{{ place.img_url }}"
-                                 {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
-                                alt="place-img">
+                                        {% if "/" in place.img_url %} src="{{ place.img_url }}"
+                                        {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
+                                     alt="place-img">
                                 <h4>{{ place.title }}</h4>
                             </div>
                         </div>

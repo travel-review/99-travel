@@ -28,19 +28,17 @@
             $('html').scrollTop(0);
         }
 
-        const clickLike = (post_id, type) => {
+        const clickLike = (post_id, user_id) => {
             let query = `.placeLike#${post_id}`
             let $place_like = $(query)
             $place_like.toggleClass('fill-red')
-            console.log(post_id, type)
-            console.log($place_like)
+
             if ($place_like.hasClass("fill-red")) {
                 $.ajax({
                     type: "POST",
                     url: "/api/like",
                     data: {
                         post_id_give: post_id,
-                        type_give: type,
                         action_give: "like"
                     },
                     success: function (response) {
@@ -55,7 +53,6 @@
                     url: "/api/like",
                     data: {
                         post_id_give: post_id,
-                        type_give: type,
                         action_give: "unlike"
                     },
                     success: function (response) {
@@ -102,7 +99,7 @@
         }
 
         function sign_out() {
-            $.removeCookie('mytoken', {path: '/'});
+            $.removeCookie('my_token', {path: '/'});
             alert('로그아웃!')
             window.location.href = "/login"
         }
@@ -133,7 +130,7 @@
     <div class="container">
         <div class="row">
             <div class="col-4">
-                <h1 onclick="goRepo()">29조</h1>
+                <h1>29조</h1>
             </div>
             <div class="col-8">
                 <ul>

@@ -22,19 +22,17 @@
     <list default="true" id="91b37df8-4095-45e1-9757-0cd868e9b58b" name="Changes" comment="what.......">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-09-51-51.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-10-03-43.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-10-08-05.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-08-30.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-12-58.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-20-03.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-20-22.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-23-17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-32-59.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/tmp.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-16-00-41.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-16-01-58.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-16-08-10.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-16-13-03.PNG" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/landing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/mypage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mypage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +48,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1yCPeT0xltcRvWDaY1op2noiVSM" />
   <component name="ProjectViewState">
@@ -145,6 +151,10 @@
       <workItem from="1631855788250" duration="1399000" />
       <workItem from="1631857428772" duration="2445000" />
       <workItem from="1631860879759" duration="1962000" />
+      <workItem from="1631867578045" duration="666000" />
+      <workItem from="1631870511664" duration="110000" />
+      <workItem from="1631870643807" duration="5035000" />
+      <workItem from="1631875842554" duration="30000" />
     </task>
     <task id="LOCAL-00001" summary="Update Styles &amp; Responsive Styles">
       <created>1631773878544</created>
@@ -192,6 +202,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="what......." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/app_py$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1631862762347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/app_py$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1631874996704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

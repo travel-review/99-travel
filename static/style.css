@@ -24,19 +24,19 @@
 }
 
 /* ---- footer ----- */
-footer {
+footer{
     position: fixed;
-    bottom: 0;
+    bottom:0;
     z-index: 1;
-    bottom: 0;
+    bottom:0;
     width: 100vw;
-    height: 7.5rem;
+    height: 7rem;
     background-color: #000;
     color: #fff;
 }
 
 footer a:hover, footer h1:hover {
-    transform: scale(1.1);
+    transform:scale(1.1);
     text-decoration: none;
     color: #fff;
     cursor: pointer;
@@ -52,7 +52,7 @@ footer img {
     height: 3rem;
 }
 
-footer li a {
+footer li a{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -66,10 +66,10 @@ footer h1 {
 }
 
 footer .row {
-    height: 7.5rem;
+    height: 7rem;
 }
 
-footer .col-6 {
+footer .col-4, footer .col-8 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,7 +84,7 @@ footer ul {
 }
 
 
-footer li:nth-child(2) {
+footer li:nth-child(2){
     margin: 0 30px;
 }
 

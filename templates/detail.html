@@ -18,14 +18,33 @@
             })
         }
 
+        const removeComment = (commentUniId, commentWriterId)=>{
+            const comments = commentUniId;
+            const writer = commentWriterId;
+            $.ajax({
+                type: "POST",
+                url: '/api/comment/remove',
+                data: { comment_give : comments, writer_give : writer },
+                success: function (response) {
+                    const deleteCheck = window.confirm("작성한 리뷰를 삭제하시겠습니까?");
+                    if(deleteCheck === true){
+                        alert(response["msg"]);
+                        location.reload();
+                    } else {
+                        return;
+                    }
+                }
+            })
+        }
     </script>
 {% endblock scripts %}
 {% block content %}
     <section class="detail-group">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
+            <div class="row ">
+                <div class="col-12 detail-title-group">
                     <h1 class="detail-title">{{ place.title }}</h1>
+                    <button class="remove-btn">X</button>
                 </div>
             </div>
             <div class="row">
@@ -61,7 +80,12 @@
                 {% else %}
                     {% for commentList in comments %}
                         <div class="col-6 comment-view-group">
-                            <h5 class="comment-writer">{{ commentList.writer_id }}</h5>
+                            <div class="comment-title-group">
+                                <h5 class="comment-writer">{{ commentList.writer_id }}</h5>
+                                {% if login_id == commentList.writer_id %}
+                                <button class="comment-remove-btn" onclick="removeComment('{{ commentList._id }}', '{{ commentList.writer_id }}')">X</button>
+                                {% endif %}
+                            </div>
                             <p class="comment-desc" id="commentDesc">{{ commentList.comment }}</p>
                         </div>
                     {% endfor %}

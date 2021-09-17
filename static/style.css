@@ -4,8 +4,8 @@
 }
 
 .go-to-top {
-    z-index: 3;
     position: fixed;
+    z-index: 3;
     right: 8rem;
     bottom: 4rem;
     background-color:#fff;
@@ -25,14 +25,15 @@
 
 /* ---- footer ----- */
 footer{
-    position: fiexd;
+    position: fixed;
+    bottom:0;
+    z-index: 1;
     bottom:0;
     width: 100vw;
     height: 7.5rem;
     background-color: #000;
     color: #fff;
 }
-
 
 footer h1 {
     width: 100%;
@@ -124,6 +125,7 @@ footer li:nth-child(2){
 
 .post-card-group {
     margin-top: 3em;
+    margin-bottom: 13em;
 }
 
 .post-card {
@@ -236,6 +238,11 @@ header a:hover {
 
 
 /* ---- detail page ----- */
+
+.detail-group {
+    padding-bottom: 8rem;
+}
+
 .detail-title {
     display: flex;
     justify-content: center;
@@ -360,6 +367,47 @@ header a:hover {
     margin-bottom: 4rem;
 }
 
+.comment-title-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-btn {
+    font-size: 1.7rem;
+    font-weight: 700;
+    background-color: #fff;
+    border: 2px solid #d21404;
+    color: #d21404;
+    position: absolute;
+    width: 3.5rem;
+    height: 3.5rem;
+    bottom:0;
+    right:0;
+    margin: 0.2rem;
+    font-weight: 700;
+    border-radius: 50%;
+    transition: background-color ease-in 250ms;
+    transition: color ease-in 50ms;
+}
+
+.comment-remove-btn {
+    width: 2rem;
+    height: 2rem;
+    background-color: #fff;
+    border: 1px solid #d21404;
+    color: #d21404;
+    border-radius: 50%;
+    transition: background-color ease-in 250ms;
+    transition: color ease-in 50ms;
+    margin-right: 4rem;
+}
+
+.remove-btn:hover, .comment-remove-btn:hover{
+    border: none;
+    background-color: #000;
+    color: #fff;
+}
 
 /* ---- upload ----- */
 
@@ -402,6 +450,7 @@ header a:hover {
     justify-content: center;
     align-items: center;
     margin-top: 3em;
+    margin-bottom: 10rem;
 }
 
 .upload-btn button:hover {
@@ -445,7 +494,7 @@ select:hover {
 /* ---- mypage ----- */
 .mypage-group {
     padding-top:8em;
-    padding-bottom: 3em;
+    padding-bottom: 15em;
 }
 
 .my-upload-list {

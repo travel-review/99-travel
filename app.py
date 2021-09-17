@@ -205,10 +205,11 @@ def detail(placeId):
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.user.find_one({"id": payload['id']})
         my_query = {"_id": ObjectId(placeId)}
+        login_id = payload.get('id')
         col = db.places.find_one(my_query)
         comments = list(db.comments.find({"comment_place": placeId}))
         if(comments):
-            return render_template('detail.html', place=col, user_info=user_info, comments=comments)
+            return render_template('detail.html', place=col, user_info=user_info, comments=comments, login_id=login_id)
         else:
             return render_template('detail.html', place=col, user_info=user_info, comments="false")
 
@@ -228,6 +229,27 @@ def upload_comment():
         place_receive = request.form['place_give']
         db.comments.insert_one({'comment': comment_receive, 'writer_id': id, 'comment_place':place_receive})
         return jsonify({'result': 'success', 'msg': '리뷰가 등록되었습니다 !'})
+
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
+
+
+
+@app.route('/api/comment/remove', methods=['POST'])
+def remove_comment():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"id": payload["id"]})
+        id = payload.get('id')
+        print(id)
+        comment_uni_id_receive = ObjectId(request.form['comment_give'])
+        comment_writer_receive = request.form['writer_give']
+        if(id==comment_writer_receive):
+            db.comments.delete_one({'_id': comment_uni_id_receive})
+            return jsonify({'result': 'success','msg': '리뷰가 삭제되었습니다.'})
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))

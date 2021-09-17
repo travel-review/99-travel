@@ -22,8 +22,18 @@
     <list default="true" id="91b37df8-4095-45e1-9757-0cd868e9b58b" name="Changes" comment="what.......">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-14-44-38.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-14-45-23.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-09-51-51.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-10-03-43.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-10-08-05.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-08-30.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-12-58.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-20-03.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-20-22.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-23-17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-16-11-32-59.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/tmp.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +64,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\cxz53\Desktop\tutorial\Python\travel\dev_repo\99-travel\static\testAssets" />
       <recent name="$PROJECT_DIR$/static/testAssets" />
     </key>
   </component>
@@ -87,7 +98,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -102,7 +113,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -133,6 +144,7 @@
       <workItem from="1631855420658" duration="184000" />
       <workItem from="1631855788250" duration="1399000" />
       <workItem from="1631857428772" duration="2445000" />
+      <workItem from="1631860879759" duration="1962000" />
     </task>
     <task id="LOCAL-00001" summary="Update Styles &amp; Responsive Styles">
       <created>1631773878544</created>
@@ -180,6 +192,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="what......." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/app_py$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1631859672705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/app_py$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1631862762347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

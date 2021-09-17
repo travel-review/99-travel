@@ -49,9 +49,7 @@
                     }
                 })
 
-            }
-            else
-            {
+            } else {
                 $.ajax({
                     type: "POST",
                     url: "/api/like",
@@ -67,6 +65,7 @@
                 })
             }
         }
+
         function posting() {
             bsCustomFileInput.init()
             let title = $('.title').val()
@@ -75,7 +74,7 @@
             let file = $('.file')[0].files[0]
             let form_data = new FormData()
 
-            if(continent === "select"){
+            if (continent === "select") {
                 alert("대륙을 선택해야합니다.")
                 return;
             }
@@ -96,11 +95,12 @@
                     alert(response["msg"])
                     window.location.href = '/'
                 },
-                fail:function(response){
+                fail: function (response) {
                     alert(response['msg'])
                 }
             });
         }
+
         function sign_out() {
             $.removeCookie('mytoken', {path: '/'});
             alert('로그아웃!')
@@ -133,24 +133,30 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <h1>29조</h1>
+                <h1 onclick="goRepo()">29조</h1>
             </div>
             <div class="col-6">
-                 <ul>
-                       <li>
-                           김영우
-                       </li>
-                        <li>
-                           권민혁
-                       </li>
-                        <li>
-                           이경아
-                       </li>
-                    </ul>
+                <ul>
+                    <li>
+                        <a href="https://github.com/cxz5309" target="_blank">
+                            <img src="../static/testAssets/git.png" alt="">
+                            김영우
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/15011106/" target="_blank">
+                            <img src="../static/testAssets/git.png" alt="">
+                            권민혁
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/kyuung?tab=repositories" target="_blank">
+                            <img src="../static/testAssets/git.png" alt="">
+                            이경아
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </footer>
-</body>
-</html>
-

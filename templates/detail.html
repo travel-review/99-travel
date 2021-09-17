@@ -17,9 +17,10 @@
                 }
             })
         }
-        const removereview = (user_id, WriterId)=>{
-            const _id = user_id
-            const writer = WriterId;
+        const removereview = (place_id, writer_id)=>{
+            const _id = place_id
+            const writer = writer_id;
+            console.log()
             $.ajax({
                 type: "POST",
                 url: '/api/review/remove',
@@ -45,7 +46,7 @@
                 url: '/api/comment/remove',
                 data: { comment_give : comments, writer_give : writer },
                 success: function (response) {
-                    const deleteCheck = window.confirm("작성한 리뷰를 삭제하시겠습니까?");
+                    const deleteCheck = window.confirm("작성한 댓글을 삭제하시겠습니까?");
                     if(deleteCheck === true){
                         alert(response["msg"]);
                         location.reload();
@@ -63,8 +64,8 @@
             <div class="row ">
                 <div class="col-12 detail-title-group">
                     <h1 class="detail-title">{{ place.title }}</h1>
-                    {% if login_id == place.userId %}
-                    <button class="remove-btn" onclick="removereview('{{ place._id }}','{{ place.userId }}')" >X</button>
+                    {% if user_info.id == place.userId %}
+                    <button class="remove-btn" onclick="removereview('{{ place._id }}', '{{ place.userId }}')" >X</button>
                     {% endif %}
                 </div>
             </div>
@@ -89,10 +90,10 @@
                         <p class="detail-desc">{{ place.description }}</p>
                 </div>
                 <div class="col-10 comment-input-style">
-                    <textarea name="" id="commentInput" cols="80" rows="2" placeholder="리뷰를 작성해주세요 (160자 이내)"></textarea>
+                    <textarea name="" id="commentInput" cols="80" rows="2" placeholder="댓글을 작성해주세요 (160자 이내)"></textarea>
                 </div>
                 <div class="col-2 comment-input-style">
-                    <button type="submit" onclick="uploadComment()">리뷰 등록하기</button>
+                    <button type="submit" onclick="uploadComment()">댓글 등록하기</button>
                 </div>
             </div>
             <div class="row">
@@ -103,7 +104,7 @@
                         <div class="col-6 comment-view-group">
                             <div class="comment-title-group">
                                 <h5 class="comment-writer">{{ commentList.writer_id }}</h5>
-                                {% if login_id == commentList.writer_id %}
+                                {% if user_info.id == commentList.writer_id %}
                                 <button class="comment-remove-btn" onclick="removeComment('{{ commentList._id }}', '{{ commentList.writer_id }}')">X</button>
                                 {% endif %}
                             </div>

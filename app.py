@@ -213,7 +213,7 @@ def detail(placeId):
         col = db.places.find_one(my_query)
         comments = list(db.comments.find({"comment_place": placeId}))
         if(comments):
-            return render_template('detail.html', place=col, user_info=user_info, comments=comments, login_id=login_id)
+            return render_template('detail.html', place=col, user_info=user_info, comments=comments)
         else:
             return render_template('detail.html', place=col, user_info=user_info, comments="false")
 
@@ -232,7 +232,7 @@ def upload_comment():
         comment_receive = request.form['comment_give']
         place_receive = request.form['place_give']
         db.comments.insert_one({'comment': comment_receive, 'writer_id': id, 'comment_place':place_receive})
-        return jsonify({'result': 'success', 'msg': '리뷰가 등록되었습니다 !'})
+        return jsonify({'result': 'success', 'msg': '댓글이 등록되었습니다 !'})
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
@@ -253,7 +253,9 @@ def remove_comment():
         comment_writer_receive = request.form['writer_give']
         if(id==comment_writer_receive):
             db.comments.delete_one({'_id': comment_uni_id_receive})
-            return jsonify({'result': 'success','msg': '리뷰가 삭제되었습니다.'})
+            return jsonify({'result': 'success','msg': '댓글이 삭제되었습니다.'})
+        else:
+            print(123)
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
@@ -265,13 +267,16 @@ def remove_review():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_id_receive = ObjectId(request.form['_id_give'])
+        place_id_receive = ObjectId(request.form['_id_give'])
         review_writer_receive = request.form['writer_give']
         user_info = db.users.find_one({"id": payload["id"]})
         id = payload.get('id')
+        print(place_id_receive)
+        print(review_writer_receive)
+        print(id)
         if (id == review_writer_receive):
-            db.places.delete_one({'_id': user_id_receive})
-            return jsonify({'result': 'success','msg': '리뷰가 삭제되었습니다.'})
+            db.places.delete_one({'_id': place_id_receive})
+            return jsonify({'result': 'success', 'msg': '리뷰가 삭제되었습니다.'})
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))

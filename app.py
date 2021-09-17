@@ -149,7 +149,8 @@ def write_review():
         my_time = today.strftime('%Y-%m-%d-%H-%M-%S')
         # 확장자
         extension = file.filename.split('.')[-1]
-        # 확장자에 따라 올릴 수 있는 파일을 제한합니다.
+        # 확장자에 따라 올릴 수 있는 파일을 제한하여 오류 메세지를 전송합니다.
+        # 프론트로 대륙 선택을 하지 않았을 경우에도 오류메세지를 전송합니다.
         if extension not in white_list:
             return jsonify({'result': 'fail', 'msg': '올바른 파일 형식이 아닙니다!'})
         filename = f'file-{my_time}'
@@ -303,6 +304,7 @@ def update_like():
         print(col)
         if action_receive == "like":
             # 현재 접속중인 아이디를 게시글의 좋아요 리스트에 추가합니다. 아이디에 따라 좋아요 정보가 재 로그인 후에도 남아있습니다.
+            # 한 게시물에느 동일 아이디 당 하나의 좋아요를 줄 수 있습니다.
             db.places.update_one(my_query, {"$push": {"like": payload["id"]}})
             count = db.places.find_one(my_query)["like"]
             print(db.places.find_one(my_query))

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %}<title>travel-detail</title>{% endblock title %}
+{% block scripts %}
+    <script>
+        const uploadComment = ()=>{
+            const url = window.location.href;
+            const idStart = url.indexOf('detail')+7;
+            const detailPageId = url.slice(idStart);
+            console.log(detailPageId);
+            $.ajax({
+                type: "POST",
+                url: '/api/comment',
+                data: { comment_give : $('#commentInput').val(), place_give : detailPageId },
+                success: function (response) {
+                    alert(response["msg"]);
+                    location.reload();
+                }
+            })
+        }
+        const removereview = (place_id, writer_id)=>{
+            const _id = place_id
+            const writer = writer_id;
+            console.log()
+            $.ajax({
+                type: "POST",
+                url: '/api/review/remove',
+                data: { _id_give : _id , writer_give: writer},
+                success: function (response) {
+                    const deleteCheck = window.confirm("작성한 리뷰를 삭제하시겠습니까?");
+                    if(deleteCheck === true){
+                        alert(response["msg"]);
+                        location.href='/';
+                    } else {
+                        return;
+                    }
+                }
+            })
+
+        }
+
+        const removeComment = (commentUniId, commentWriterId)=>{
+            const comments = commentUniId;
+            const writer = commentWriterId;
+            $.ajax({
+                type: "POST",
+                url: '/api/comment/remove',
+                data: { comment_give : comments, writer_give : writer },
+                success: function (response) {
+                    const deleteCheck = window.confirm("작성한 댓글을 삭제하시겠습니까?");
+                    if(deleteCheck === true){
+                        alert(response["msg"]);
+                        location.reload();
+                    } else {
+                        return;
+                    }
+                }
+            })
+        }
+    </script>
+{% endblock scripts %}
+{% block content %}
+    <section class="detail-group">
+        <div class="container">
+            <div class="row ">
+                <div class="col-12 detail-title-group">
+                    <h1 class="detail-title">{{ place.title }}</h1>
+                    {% if user_info.id == place.userId %}
+                    <button class="remove-btn" onclick="removereview('{{ place._id }}', '{{ place.userId }}')" >X</button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 img-group">
+                    <div class="detail-img">
+                        <img
+                             {% if "/" in place.img_url %} src="{{ place.img_url }}"
+                             {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
+                            alt="place-img">
+                        <div onclick="clickLike('{{ place._id }}','{{ user_info._id }}', 'heart')" class="heart-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100" height="100">
+                                <path d="M140 20C73 20 20 74 20 140c0 135 136 170 228 303 88-132 229-173 229-303 0-66-54-120-120-120-48 0-90 28-109 69-19-41-60-69-108-69z"
+                                                  stroke="red" stroke-width="20" fill="none" id="{{ place._id }}"
+                                                  {% if (user_info.id in place.like) %}class="placeLike fill-red"
+                                                  {% else %}class="placeLike"{% endif %}></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 detail-desc-center">
+                        <p class="detail-desc">{{ place.description }}</p>
+                </div>
+                <div class="col-10 comment-input-style">
+                    <textarea name="" id="commentInput" cols="80" rows="2" placeholder="댓글을 작성해주세요 (160자 이내)"></textarea>
+                </div>
+                <div class="col-2 comment-input-style">
+                    <button type="submit" onclick="uploadComment()">댓글 등록하기</button>
+                </div>
+            </div>
+            <div class="row">
+                {% if comments=="false" %}
+                    <div class="space"></div>
+                {% else %}
+                    {% for commentList in comments %}
+                        <div class="col-6 comment-view-group">
+                            <div class="comment-title-group">
+                                <h5 class="comment-writer">{{ commentList.writer_id }}</h5>
+                                {% if user_info.id == commentList.writer_id %}
+                                <button class="comment-remove-btn" onclick="removeComment('{{ commentList._id }}', '{{ commentList.writer_id }}')">X</button>
+                                {% endif %}
+                            </div>
+                            <p class="comment-desc" id="commentDesc">{{ commentList.comment }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+

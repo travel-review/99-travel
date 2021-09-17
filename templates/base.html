@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block title %}
+        <!-- 페이지별 타이틀 공간 -->
+        <title>Title</title>
+    {% endblock title %} {% block meta %}
+    <!-- 페이지별 메타 데이터 공간 -->
+{% endblock meta %} {% block scripts %}
+    <!-- 페이지별 스크립트 공간 -->
+{% endblock scripts %}
+    <link rel="icon" href="../static/testAssets/favicon.png"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/default.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+    <script src="https://kit.fontawesome.com/a8be7e5080.js" crossorigin="anonymous"></script>
+    <script>
+        const goTop = () => {
+            $('html').scrollTop(0);
+        }
+
+        const clickLike = (post_id, type) => {
+            let query = `.placeLike#${post_id}`
+            let $place_like = $(query)
+            $place_like.toggleClass('fill-red')
+            console.log(post_id, type)
+            console.log($place_like)
+            if ($place_like.hasClass("fill-red")) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/like",
+                    data: {
+                        post_id_give: post_id,
+                        type_give: type,
+                        action_give: "like"
+                    },
+                    success: function (response) {
+                        console.log("like")
+                        console.log(response["count"])
+                    }
+                })
+
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/like",
+                    data: {
+                        post_id_give: post_id,
+                        type_give: type,
+                        action_give: "unlike"
+                    },
+                    success: function (response) {
+                        console.log("unlike")
+                        console.log(response["count"])
+                    }
+                })
+            }
+        }
+
+        function posting() {
+            bsCustomFileInput.init()
+            let title = $('.title').val()
+            let review = $(".review").val()
+            let continent = $('.continent').find("option:selected").data("sub");
+            let file = $('.file')[0].files[0]
+            let form_data = new FormData()
+
+            if (continent === "select") {
+                alert("대륙을 선택해야합니다.")
+                return;
+            }
+            console.log(file);
+            form_data.append("continent_give", continent)
+            form_data.append("file_give", file)
+            form_data.append("title_give", title)
+            form_data.append("Review_give", review)
+
+            $.ajax({
+                type: "POST",
+                url: '/api/upload',
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert(response["msg"])
+                    window.location.href = '/'
+                },
+                fail: function (response) {
+                    alert(response['msg'])
+                }
+            });
+        }
+
+        function sign_out() {
+            $.removeCookie('mytoken', {path: '/'});
+            alert('로그아웃!')
+            window.location.href = "/login"
+        }
+    </script>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <a href="/" class="header-logo"><img src="../static/testAssets/logo.png" alt="logo-img"></a>
+            </div>
+            <div class="col-2">
+                <a href="/upload" class="header-nav">여행지 등록</a>
+            </div>
+            <div class="col-2">
+                <a href="/api/mypage" class="header-nav">마이페이지</a>
+            </div>
+            <div class="col-2 logout-btn">
+                <button onclick="sign_out()">로그아웃</button>
+            </div>
+        </div>
+    </div>
+</header>
+<button class="go-to-top" onclick="goTop()"><i class="fas fa-arrow-up fa-2x"></i></button>
+{% block content %} {% endblock content %}
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h1 onclick="goRepo()">29조</h1>
+            </div>
+            <div class="col-8">
+                <ul>
+                    <li>
+                        <a href="https://github.com/cxz5309" target="_blank">
+                            <img src="../static/testAssets/git.png" alt="">
+                            김영우
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/15011106/" target="_blank">
+                            <img src="../static/testAssets/git.png" alt="">
+                            권민혁
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/kyuung?tab=repositories" target="_blank">
+                            <img src="../static/testAssets/git.png" alt="">
+                            이경아
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

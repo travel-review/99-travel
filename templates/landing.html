@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}<title>travel-main</title>{% endblock title %}
+{% block content %}
+    <section class="header-img">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>해외 여행 후기</h1>
+                    <h2>기억에 남았던 해외 여행 후기를 등록해보세요</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <main>
+        <nav class="location-filter-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 btn-group">
+                        <button onclick="location.href='/'">전체</button>
+                        <button onclick="location.href='/nav/europe'">유럽</button>
+                        <button onclick="location.href='/nav/america'">아메리카</button>
+                        <button onclick="location.href='/nav/east_asia'">동아시아</button>
+                        <button onclick="location.href='/nav/southeast_asi'">동남아</button>
+                        <button onclick="location.href='/nav/oceania'">오세아니아</button>
+                        <button onclick="location.href='/nav/ect'">기타</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section class="post-card-group">
+            <div class="container">
+                <div class="container-fluid">
+                    <div class="row">
+                    {% for place in places %}
+                        <div class="col-lg-4 col-md-6">
+                            <a class="post-card">
+                                <div class="img-group">
+                                    <img class="card-img-top" onclick="location.href='/detail/{{ place._id }}'"
+                                         {% if "/" in place.img_url %} src="{{ place.img_url }}"
+                                         {% else %} src="../static/img/{{ place.img_url }}"{% endif %}
+                                         alt="Card image cap">
+                                    <div onclick="clickLike('{{ place._id }}','{{ user_info._id }}', 'heart')"
+                                         class="heart-circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100"
+                                             height="100">
+                                            <path d="M140 20C73 20 20 74 20 140c0 135 136 170 228 303 88-132 229-173 229-303 0-66-54-120-120-120-48 0-90 28-109 69-19-41-60-69-108-69z"
+                                                  stroke="red" stroke-width="20" fill="none" id="{{ place._id }}"
+                                                  {% if (user_info.id in place.like) %}class="placeLike fill-red"
+                                                  {% else %}class="placeLike"{% endif %}></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">{{ place.title }}</h5>
+                                <p class="card-text">{{ place.description }}</p>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}
+

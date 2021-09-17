@@ -1,0 +1,675 @@
+* {
+    box-sizing: content-box;
+    margin: 0;
+}
+
+.go-to-top {
+    position: fixed;
+    z-index: 3;
+    right: 8rem;
+    bottom: 4rem;
+    background-color: #fff;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    transition: background-color ease-in-out 250ms;
+    transition: color ease-in-out 170ms;
+}
+
+.go-to-top:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* ---- footer ----- */
+footer{
+    position: fixed;
+    bottom:0;
+    z-index: 1;
+    bottom:0;
+    width: 100vw;
+    height: 7rem;
+    background-color: #000;
+    color: #fff;
+}
+
+footer a:hover, footer h1:hover {
+    transform:scale(1.1);
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+footer a {
+    color: #fff;
+}
+
+footer img {
+    width: 3rem;
+    height: 3rem;
+}
+
+footer li a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+footer h1 {
+    width: 100%;
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+footer .row {
+    height: 7rem;
+}
+
+footer .col-4, footer .col-8 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+
+footer li:nth-child(2){
+    margin: 0 30px;
+}
+
+
+/* ---- landing ----- */
+.header-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 6em;
+    height: 40vh;
+    text-align: center;
+    background-image: url(../static/testAssets/background.jpg);
+    background-size: cover;
+    background-position: center;
+    max-height: 400px
+}
+
+.header-img h1 {
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.1rem;
+    font-size: 3.6rem;
+}
+
+.header-img h2 {
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.1rem;
+    font-size: 1.6rem;
+    margin-top: 2rem;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2.5em;
+    font-size: 1rem;
+}
+
+.btn-group button {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #d9d9d9;
+    width: 6.5rem;
+    height: 2.5rem;
+    border-radius: 20px;
+    transition: background-color ease-in-out 250ms;
+    transition: color ease-in-out 170ms;
+    transition: box-shadow ease-in-out 50ms;
+}
+
+.btn-group button:hover {
+    background-color: #000;
+    border: none;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    color: #fff;
+    font-weight: 700;
+}
+
+.post-card-group {
+    margin-top: 3em;
+    margin-bottom: 13em;
+}
+
+.post-card {
+    text-align: left;
+}
+
+.post-card-group img {
+    border-radius: 20px;
+    margin-bottom: 1.3em;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    height: 25em;
+    position: center;
+    object-fit: cover;
+}
+
+.post-card {
+    padding-bottom: 1em;
+    transition: opacity ease-in-out 80ms;
+    margin-bottom: 3em;
+}
+
+.post-card:hover {
+    opacity: 80%;
+}
+
+.post-card-group .heart-circle {
+    position: absolute;
+    top: -0.5rem;
+}
+
+.post-card-group svg {
+    position: relative;
+    top: 0.8rem;
+    right: -0.5rem;
+}
+
+
+/* ---- header ----- */
+
+header {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    background-color: #fff;
+    z-index: 3;
+    border: #d9d9d9 solid 1px;
+}
+
+header .col-2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    width: 11em;
+    padding: 0.7em;
+    height: 2.3em;
+}
+
+a {
+    display: block;
+    text-align: right;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+header a:hover {
+    transform: scale(1.1);
+    color: #000;
+    text-decoration: none;
+}
+
+.header-logo {
+    text-align: left;
+    border-radius: 8px;
+}
+
+.header-nav {
+    color: #000;
+    text-align: right;
+}
+
+.logout-btn {
+    text-align: right;
+}
+
+.logout-btn button {
+    font-weight: 700;
+    color: #dc143c;
+}
+
+.logout-btn button:hover {
+    transform: scale(1.1);
+    color: #dc143c;
+    text-decoration: none;
+}
+
+
+/* ---- detail page ----- */
+
+.detail-group {
+    padding-bottom: 8rem;
+}
+
+.detail-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    margin-top: 3em;
+}
+
+.img-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 1.5em;
+    border-radius: 10px;
+    background-color: #000;
+    -webkit-box-shadow: 9px 8px 18px 1px rgba(0, 0, 0, 0.61);
+    box-shadow: 9px 8px 18px 1px rgba(0, 0, 0, 0.61);
+    margin-bottom: 1.8rem;
+}
+
+.detail-img img {
+    border-radius: 10px;
+    width: 40rem;
+    height: 40rem;
+    position: center;
+    object-fit: cover;
+}
+
+.detail-desc-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.detail-desc {
+    padding-right: 3em;
+    padding-left: 3em;
+    text-align: center;
+    font-size: 1em;
+    padding-bottom: 3em;
+}
+
+.detail-img svg {
+    position: relative;
+    z-index: 2;
+    top: 10px;
+    right: -0.6rem;
+}
+
+.heart-circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 50%;
+    margin: 1rem;
+}
+
+.fill-red {
+    fill: red;
+}
+
+.comment-input-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+#commentInput {
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    border-radius: 12px;
+    height: 7rem;
+    width: 100%;
+    padding: 20px
+}
+
+.comment-input-style button {
+    padding: 1em;
+    background-color: #d9d9d9;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: background-color ease-in 200ms;
+    transition: color ease-in 50ms;
+}
+
+.comment-input-style button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.comment-writer {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.comment-desc {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.comment-view-group {
+    margin-top: 3rem;
+    margin-bottom: 0.8rem;
+}
+
+.comment-view-group:last-child {
+    margin-bottom: 4rem;
+}
+
+.comment-title-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-btn {
+    font-size: 1.7rem;
+    font-weight: 700;
+    background-color: #fff;
+    border: 2px solid #d21404;
+    color: #d21404;
+    position: absolute;
+    width: 3.5rem;
+    height: 3.5rem;
+    bottom: 0;
+    right: 0;
+    margin: 0.2rem;
+    font-weight: 700;
+    border-radius: 50%;
+    transition: background-color ease-in 250ms;
+    transition: color ease-in 50ms;
+}
+
+.comment-remove-btn {
+    width: 2rem;
+    height: 2rem;
+    background-color: #fff;
+    border: 1px solid #d21404;
+    color: #d21404;
+    border-radius: 50%;
+    transition: background-color ease-in 250ms;
+    transition: color ease-in 50ms;
+    margin-right: 4rem;
+}
+
+.remove-btn:hover, .comment-remove-btn:hover {
+    border: none;
+    background-color: #000;
+    color: #fff;
+}
+
+/* ---- upload ----- */
+
+.upload-title {
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 3em;
+}
+
+#placeTitle {
+    text-align: center;
+    margin-top: 4em;
+    width: 100%;
+    height: 4em;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    border-radius: 10px;
+}
+
+#placeDesc {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    height: 10em;
+    margin-top: 4em;
+    -webkit-box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    box-shadow: 3px 5px 13px -1px rgba(0, 0, 0, 0.44);
+    border-radius: 10px;
+    margin-bottom: 4em;
+}
+
+#placeContient {
+    border: 1px solid #000
+}
+
+.upload-btn {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
+    margin-bottom: 10rem;
+}
+
+.upload-btn button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.upload-btn button {
+    background-color: #42cef5;
+    border-radius: 10px;
+    width: 10em;
+    height: 2em;
+    color: #fff;
+    font-weight: 700;
+
+}
+
+.upload-select {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-select input, select {
+    width: 10em;
+    height: 2em;
+}
+
+.upload-select select {
+    padding: 0.3em;
+    text-align: center;
+    transition: background-color ease-in-out 150ms;
+    transition: color ease-in-out 100ms;
+}
+
+select:hover {
+    background-color: #42cef5;
+    color: #fff;
+}
+
+/* ---- mypage ----- */
+.mypage-group {
+    padding-top: 8em;
+    padding-bottom: 15em;
+}
+
+.my-upload-list {
+    padding-bottom: 7em;
+}
+
+.mypage-group img {
+    position: center;
+    object-fit: cover;
+    width: 20em;
+    height: 20em;
+    background-size: cover;
+    margin-top: 2rem;
+    margin-bottom: 1.4em;
+    border-radius: 10px;
+    -webkit-box-shadow: 9px 8px 18px 1px rgba(0, 0, 0, 0.61);
+    box-shadow: 9px 8px 18px 1px rgba(0, 0, 0, 0.61);
+}
+
+.mypage-group img:hover {
+    opacity: 50%;
+    transition: opactiy ease-in-out 300ms;
+    cursor: pointer;
+}
+
+.mypage-group h3 {
+    font-weight: 700;
+    font-size: 2em;
+    margin-bottom: 1rem;
+}
+
+/* ---- signup ----- */
+
+.login-group label {
+    text-align: left;
+    font-size: 0.8rem;
+    padding-left: 1rem;
+    line-height: 1rem;
+    color: blue;
+}
+
+.login-group {
+    text-align: left;
+}
+
+/* ---- login ----- */
+.sign-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    background-image: url(../static/testAssets/Desktop-loginbackground.jpg);
+    background-size: cover;
+}
+
+.sign-page h1 {
+    margin-bottom: 2rem;
+}
+
+.login-group .box-btn {
+    background-color: #fff;
+}
+
+.sign-input {
+    min-width: 25vw;
+    min-height: 4vw;
+    border: none;
+    -webkit-box-shadow: 4px 9px 15px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 4px 9px 15px 2px rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+    padding-left: 1.5rem;
+    margin-bottom: 1.3rem;
+}
+
+.sign-input, .box-btn {
+    min-width: 500px;
+    min-height: 60px;
+}
+
+.box-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25vw;
+    height: 3vw;
+    border: none;
+    -webkit-box-shadow: 4px 9px 15px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 4px 9px 15px 2px rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: background-color ease-in-out 150ms;
+}
+
+.login-box {
+    margin-bottom: 30px;
+}
+
+.box-btn:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.box-btn a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.box-btn a:hover {
+    color: #fff;
+}
+
+.login-page .box-btn a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.travel-group {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 4em;
+    border-radius: 30px;
+    -webkit-box-shadow: 3px 2px 15px 10px rgba(0, 0, 0, 0.31);
+    box-shadow: 3px 2px 15px 10px rgba(0, 0, 0, 0.31);
+    min-width: 500px;
+}
+
+.space {
+    width: 100vw;
+    margin-bottom: 10rem;
+}
+
+
+@media screen and (max-width: 768px) {
+    .login-page {
+        background-image: url(../static/testAssets/Phone-login-background.jpg);
+    }
+}
+
+@media screen and (min-width: 980px) {
+    .detail-img {
+        width: 615px;
+    }
+}

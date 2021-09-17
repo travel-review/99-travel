@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}<title>travel-detail</title>{% endblock title %}
+{% block content %}
+    <section class="upload-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="upload-title">내 장소 업로드</h1>
+                </div>
+                <div class="col-12">
+                    <input type="text" id="placeTitle" class="title" placeholder="장소가 어디인가요?">
+                </div>
+                <div class="col-12">
+                    <textarea name="" id="placeDesc" class="review" cols="30" rows="10"
+                              placeholder="설명을 적어주세요"></textarea>
+                </div>
+                <div class="col-6 upload-select">
+                    <select name="continent" class="continent" id="placeContient">
+                        <option value="" data-sub="select">대륙 선택</option>
+                        <option value="유럽" data-sub="europe">유럽</option>
+                        <option value="아메리카" data-sub="america">아메리카</option>
+                        <option value="동아시아" data-sub="east_asia">동아시아</option>
+                        <option value="동남아" data-sub="southeast_asi">동남아</option>
+                        <button value="오세아니아" data-sub="oceania">오세아니아</button>
+                        <option value="기타" data-sub="ect">기타</option>
+                    </select>
+                </div>
+                <div class="col-6 upload-select">
+                    <input type="file" id="placeImg" class="file">
+                </div>
+                <div class="col-12 upload-btn">
+                    <button onclick="posting()">업로드</button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

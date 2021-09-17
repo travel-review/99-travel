@@ -136,8 +136,10 @@ def upload():
 
 @app.route('/api/upload', methods=['POST'])
 def write_review():
+    white_list = ['JPG','jpg','gif','png','PNG']
     token_receive = request.cookies.get('mytoken')
     try:
+
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"id": payload["id"]})
 
@@ -149,6 +151,8 @@ def write_review():
         today = datetime.now()
         mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
         extension = file.filename.split('.')[-1]
+        if extension not in white_list:
+            return jsonify({'result': 'fail', 'msg': '올바른 파일 형식이 아닙니다!'})
         filename = f'file-{mytime}'
         save_to = f'static/img/{filename}.{extension}'
         print(file)
@@ -256,6 +260,19 @@ def remove_comment():
     except jwt.exceptions.DecodeError:
         return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
 
+@app.route('/api/review/remove', methods=['POST'])
+def remove_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_id_receive = ObjectId(request.form['_id_give'])
+        db.places.delete_one({'_id': user_id_receive})
+        return jsonify({'result': 'success','msg': '리뷰가 삭제되었습니다.'})
+
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("/", msg="로그인 시간이 만료되었습니다."))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("/", msg="로그인 정보가 존재하지 않습니다."))
 
 @app.route('/api/like', methods=['POST'])
 def update_like():

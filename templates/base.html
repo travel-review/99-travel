@@ -75,6 +75,10 @@
             let file = $('.file')[0].files[0]
             let form_data = new FormData()
 
+            if(continent === "select"){
+                alert("대륙을 선택해야합니다.")
+                return;
+            }
             console.log(file);
             form_data.append("continent_give", continent)
             form_data.append("file_give", file)
@@ -91,6 +95,9 @@
                 success: function (response) {
                     alert(response["msg"])
                     window.location.href = '/'
+                },
+                fail:function(response){
+                    alert(response['msg'])
                 }
             });
         }

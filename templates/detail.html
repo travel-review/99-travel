@@ -17,6 +17,24 @@
                 }
             })
         }
+        const removereview = (user_id)=>{
+            const _id = user_id
+            $.ajax({
+                type: "POST",
+                url: '/api/review/remove',
+                data: { _id_give : _id },
+                success: function (response) {
+                    const deleteCheck = window.confirm("작성한 리뷰를 삭제하시겠습니까?");
+                    if(deleteCheck === true){
+                        alert(response["msg"]);
+                        location.href='/';
+                    } else {
+                        return;
+                    }
+                }
+            })
+
+        }
 
         const removeComment = (commentUniId, commentWriterId)=>{
             const comments = commentUniId;
@@ -44,7 +62,7 @@
             <div class="row ">
                 <div class="col-12 detail-title-group">
                     <h1 class="detail-title">{{ place.title }}</h1>
-                    <button class="remove-btn">X</button>
+                    <button class="remove-btn" onclick="removereview('{{ place._id }}')" >X</button>
                 </div>
             </div>
             <div class="row">

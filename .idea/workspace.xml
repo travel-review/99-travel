@@ -21,11 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="91b37df8-4095-45e1-9757-0cd868e9b58b" name="Changes" comment="what.......">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mypage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mypage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-14-10-41.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-14-19-52.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-14-20-22.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-14-20-59.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/file-2021-09-17-14-21-18.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signup.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +134,7 @@
       <workItem from="1631761775761" duration="15000" />
       <workItem from="1631855420658" duration="184000" />
       <workItem from="1631855788250" duration="1399000" />
+      <workItem from="1631857428772" duration="154000" />
     </task>
     <task id="LOCAL-00001" summary="Update Styles &amp; Responsive Styles">
       <created>1631773878544</created>
@@ -180,6 +182,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="what......." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/app_py$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1631857157504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/app_py$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1631857433917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
